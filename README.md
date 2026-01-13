@@ -2,7 +2,7 @@
 
 #1 Create a conda environment 
 
-conda - create -n llmapp python = 3.10 -y
+conda - create -n llmapp python = 3.12-y
 
 #b
 
