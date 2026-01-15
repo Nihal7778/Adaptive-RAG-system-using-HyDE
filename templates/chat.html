@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MediRAG Assistant</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Your custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="app-bg">
+  <div class="container py-3 py-lg-4">
+    <div class="row justify-content-center">
+      <div class="col-12 col-xl-10 col-xxl-9">
+
+        <!-- APP SHELL -->
+        <div class="app-shell shadow-lg overflow-hidden">
+
+          <!-- HEADER -->
+          <header class="app-header px-3 px-md-4 py-3">
+            <div class="d-flex align-items-center gap-3">
+              <div class="brand-badge">
+                <i class="bi bi-heart-pulse-fill"></i>
+              </div>
+
+              <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
+                  <div>
+                    <h1 class="h5 mb-0 fw-semibold text-white">MediRAG Assistant</h1>
+                    <div class="small text-white-50 d-flex align-items-center gap-2">
+                      <span class="status-dot"></span>
+                      <span id="statusText">Online • Source-grounded answers</span>
+                    </div>
+                  </div>
+
+                  <div class="d-flex align-items-center gap-2">
+                    <button id="toggleSourcesBtn" class="btn btn-sm btn-outline-light soft-btn" type="button">
+                      <i class="bi bi-journal-text me-1"></i> Sources: <span id="sourcesState">On</span>
+                    </button>
+                    <button id="clearChatBtn" class="btn btn-sm btn-light soft-btn" type="button">
+                      <i class="bi bi-trash3 me-1"></i> Clear
+                    </button>
+                  </div>
+                </div>
+
+                <div class="mt-2 alert alert-warning py-2 px-3 mb-0 disclaimer">
+                  <i class="bi bi-exclamation-triangle me-2"></i>
+                  <strong>Medical disclaimer:</strong> This chatbot provides educational information only and is not a substitute for professional medical advice.
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <!-- CHAT BODY -->
+          <main class="app-body" id="chatBody">
+            <!-- Welcome -->
+            <div class="welcome-wrap">
+              <div class="welcome-card">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="welcome-icon">
+                    <i class="bi bi-chat-dots"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h2 class="h6 fw-semibold mb-1">Ask about topics from the medical PDF</h2>
+                    <p class="text-muted mb-2">
+                      I’ll search the book and answer using the most relevant sections. If it’s not in the document, I’ll say so.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2">
+                      <button class="chip" data-prompt="What is acne?">What is acne?</button>
+                      <button class="chip" data-prompt="Explain symptoms of diabetes.">Symptoms of diabetes</button>
+                      <button class="chip" data-prompt="What are common causes of fever?">Causes of fever</button>
+                      <button class="chip" data-prompt="Summarize treatment options for asthma.">Asthma treatment</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Messages will render here -->
+            <div id="messages" class="messages"></div>
+
+            <!-- Typing indicator -->
+            <div id="typing" class="typing d-none">
+              <div class="bubble bot-bubble">
+                <div class="d-flex align-items-center gap-2">
+                  <span class="bot-avatar"><i class="bi bi-heart-pulse"></i></span>
+                  <span class="typing-dots" aria-label="Assistant typing">
+                    <span></span><span></span><span></span>
+                  </span>
+                  <span class="small text-muted">Searching the book…</span>
+                </div>
+              </div>
+            </div>
+          </main>
+
+          <!-- FOOTER -->
+          <footer class="app-footer px-3 px-md-4 py-3">
+            <form id="chatForm" class="w-100">
+              <div class="input-group input-group-lg chat-input-wrap">
+                <span class="input-group-text input-icon">
+                  <i class="bi bi-search-heart"></i>
+                </span>
+
+                <textarea
+                  id="userInput"
+                  class="form-control chat-input"
+                  placeholder="Ask a medical question… (Press Enter to send, Shift+Enter for new line)"
+                  rows="1"
+                  maxlength="1200"
+                ></textarea>
+
+                <button id="sendBtn" class="btn btn-primary send-btn" type="submit">
+                  <i class="bi bi-send-fill me-1"></i> Send
+                </button>
+              </div>
+
+              <div class="d-flex justify-content-between align-items-center mt-2">
+                <div class="small text-muted">
+                  Tip: ask specific questions for better retrieval (e.g., “symptoms of X”, “treatment for Y”).
+                </div>
+                <div class="small text-muted" id="charCount">0 / 1200</div>
+              </div>
+            </form>
+          </footer>
+
+        </div>
+        <!-- /APP SHELL -->
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ---- Minimal interactive chat JS (works with Flask /get endpoint) ----
+    const messagesEl = document.getElementById("messages");
+    const typingEl = document.getElementById("typing");
+    const chatBodyEl = document.getElementById("chatBody");
+    const formEl = document.getElementById("chatForm");
+    const inputEl = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const clearChatBtn = document.getElementById("clearChatBtn");
+    const toggleSourcesBtn = document.getElementById("toggleSourcesBtn");
+    const sourcesStateEl = document.getElementById("sourcesState");
+    const charCountEl = document.getElementById("charCount");
+
+    let showSources = true;
+
+    function scrollToBottom() {
+      chatBodyEl.scrollTop = chatBodyEl.scrollHeight;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, s => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+      }[s]));
+    }
+
+    function nowTime() {
+      const d = new Date();
+      return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    function addMessage({ role, text, sources = [] }) {
+      const isUser = role === "user";
+      const msg = document.createElement("div");
+      msg.className = `msg-row ${isUser ? "msg-user" : "msg-bot"}`;
+
+      const safeText = escapeHtml(text).replace(/\n/g, "<br>");
+      const sourcesHtml = (showSources && sources && sources.length)
+        ? `
+          <details class="sources mt-2">
+            <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
+            <ul class="mt-2 mb-0">
+              ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+            </ul>
+          </details>
+        `
+        : "";
+
+      msg.innerHTML = `
+        <div class="bubble ${isUser ? "user-bubble" : "bot-bubble"}">
+          <div class="bubble-top">
+            <span class="${isUser ? "user-avatar" : "bot-avatar"}">
+              <i class="bi ${isUser ? "bi-person-fill" : "bi-heart-pulse"}"></i>
+            </span>
+            <span class="bubble-role">${isUser ? "You" : "MediRAG"}</span>
+            <span class="bubble-time ms-auto">${nowTime()}</span>
+          </div>
+          <div class="bubble-text">${safeText}</div>
+          ${sourcesHtml}
+        </div>
+      `;
+
+      messagesEl.appendChild(msg);
+      scrollToBottom();
+    }
+
+    function setTyping(isTyping) {
+      typingEl.classList.toggle("d-none", !isTyping);
+      scrollToBottom();
+    }
+
+    // Auto-grow textarea
+    function autoGrow(el) {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 160) + "px";
+    }
+
+    inputEl.addEventListener("input", () => {
+      autoGrow(inputEl);
+      charCountEl.textContent = `${inputEl.value.length} / 1200`;
+    });
+
+    // Send on Enter (Shift+Enter for newline)
+    inputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        formEl.requestSubmit();
+      }
+    });
+
+    // Quick prompt chips
+    document.querySelectorAll(".chip").forEach(btn => {
+      btn.addEventListener("click", () => {
+        inputEl.value = btn.dataset.prompt || "";
+        autoGrow(inputEl);
+        charCountEl.textContent = `${inputEl.value.length} / 1200`;
+        inputEl.focus();
+      });
+    });
+
+    // Clear chat
+    clearChatBtn.addEventListener("click", () => {
+      messagesEl.innerHTML = "";
+      setTyping(false);
+      scrollToBottom();
+    });
+
+    // Toggle sources
+    toggleSourcesBtn.addEventListener("click", () => {
+      showSources = !showSources;
+      sourcesStateEl.textContent = showSources ? "On" : "Off";
+      // Re-render not implemented; this only affects new messages.
+    });
+
+    // Main submit handler
+    formEl.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      addMessage({ role: "user", text });
+      inputEl.value = "";
+      autoGrow(inputEl);
+      charCountEl.textContent = "0 / 1200";
+
+      setTyping(true);
+      sendBtn.disabled = true;
+
+      try {
+        // This matches common Flask patterns: request.form["msg"]
+        const body = new URLSearchParams();
+        body.append("msg", text);
+
+        const res = await fetch("/get", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body
+        });
+
+        const raw = await res.text();
+
+        // If your backend returns plain text (repo default): show it.
+        // If later you return JSON like {"answer":"...", "sources":["p12","p45"]},
+        // this will detect and render sources.
+        let answerText = raw;
+        let sources = [];
+
+        try {
+          const maybe = JSON.parse(raw);
+          if (maybe && typeof maybe === "object") {
+            answerText = maybe.answer || maybe.text || raw;
+            sources = Array.isArray(maybe.sources) ? maybe.sources : [];
+          }
+        } catch (_) {}
+
+        addMessage({ role: "bot", text: answerText, sources });
+      } catch (err) {
+        addMessage({
+          role: "bot",
+          text: "Sorry — I couldn’t reach the server. Please try again."
+        });
+      } finally {
+        setTyping(false);
+        sendBtn.disabled = false;
+        inputEl.focus();
+      }
+    });
+
+    // Initial focus
+    inputEl.focus();
+  </script>
+</body>
+</html>
