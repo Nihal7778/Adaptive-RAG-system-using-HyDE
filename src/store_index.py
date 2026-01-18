@@ -12,10 +12,11 @@ load_dotenv()
 PINECONE_API_KEY = os.environ.get("PINECONE_API_KEY")
 os.environ["PINECONE_API_KEY"] = PINECONE_API_KEY
 
-extracted_data = load_pdf_data("data/")
+extracted_data = load_pdf_data("../Data/")
 text_chunks = text_split(extracted_data)
-embeddings = download_hugging_face_embeddings()
+print("Chunks:", len(text_chunks))
 
+embeddings = download_hugging_face_embeddings()
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 
 index_name = "medicalbot"
@@ -38,7 +39,7 @@ docsearch = PineconeVectorStore.from_documents(
     index_name=index_name
 )
 
-
+print("✅ Indexing complete.")
 
 
 

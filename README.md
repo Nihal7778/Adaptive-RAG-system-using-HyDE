@@ -1,16 +1,22 @@
 # End-End-MediRAG-GEN-AI
 
-#1 Create a conda environment 
-
+### STEP01 Create a conda environment 
+``` bash
 conda - create -n llmapp python = 3.12-y
-
+```
+``` bash
 #b
 
 conda activate llmapp
+``` 
 
-#2 Install the requirements
 
+
+### STEP02  Install the requirements
+``` bash
 pip install -r requirement.txt
+```
+
 
 
 

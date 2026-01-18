@@ -7,6 +7,7 @@ from langchain_classic.chains.combine_documents.stuff import create_stuff_docume
 from langchain_core.prompts import ChatPromptTemplate
 from dotenv import load_dotenv
 from src.prompt import *
+from src.helper import build_sources
 import os
 
 
@@ -51,14 +52,30 @@ rag_chain = create_retrieval_chain(retriever, question_answer_chain)
 def index():
     return render_template('chat.html')
 
-@app.route("/get", methods =["GET", "POST"])
+@app.route("/get", methods=["POST"])
 def chat():
-    msg = request.form["msg"]
-    input = msg
-    print(input)
+    msg = request.form.get("msg", "").strip()
+    if not msg:
+        return jsonify({"answer": "", "sources": []})
+
     response = rag_chain.invoke({"input": msg})
-    print("Response:", response["answer"])
-    return str(response["answer"])
+
+    answer_obj = (
+        response.get("answer")
+        or response.get("result")
+        or response.get("output")
+        or response.get("text")
+        or ""
+    )
+    answer = answer_obj.content if hasattr(answer_obj, "content") else str(answer_obj)
+
+    context_docs = response.get("context", [])
+    sources = build_sources(context_docs)
+
+    return jsonify({"answer": answer, "sources": sources})
+
+
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)  

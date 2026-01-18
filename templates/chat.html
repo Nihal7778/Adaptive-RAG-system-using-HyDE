@@ -176,16 +176,17 @@
       msg.className = `msg-row ${isUser ? "msg-user" : "msg-bot"}`;
 
       const safeText = escapeHtml(text).replace(/\n/g, "<br>");
-      const sourcesHtml = (showSources && sources && sources.length)
-        ? `
-          <details class="sources mt-2">
-            <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
-            <ul class="mt-2 mb-0">
-              ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
-            </ul>
-          </details>
-        `
-        : "";
+      const sourcesHtml = (sources && sources.length)
+  ? `
+    <details class="sources mt-2 ${showSources ? "" : "d-none"}">
+      <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
+      <ul class="mt-2 mb-0">
+        ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+      </ul>
+    </details>
+  `
+  : "";
+
 
       msg.innerHTML = `
         <div class="bubble ${isUser ? "user-bubble" : "bot-bubble"}">
