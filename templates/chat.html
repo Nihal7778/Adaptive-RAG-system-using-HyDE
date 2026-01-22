@@ -39,22 +39,38 @@
                     </div>
                   </div>
 
-                  <div class="d-flex align-items-center gap-2">
-                    <button id="toggleSourcesBtn" class="btn btn-sm btn-outline-light soft-btn" type="button">
-                      <i class="bi bi-journal-text me-1"></i> Sources: <span id="sourcesState">On</span>
+                <div class="d-flex align-items-center gap-2">
+                  <button id="toggleSourcesBtn" class="btn btn-sm btn-outline-light soft-btn" type="button">
+                    <i class="bi bi-journal-text me-1"></i> Sources: <span id="sourcesState">On</span>
+                      </button>
+                 <button id="manageDocsBtn" class="btn btn-sm btn-outline-light soft-btn" type="button" data-bs-toggle="modal" data-bs-target="#docsModal">
+                   <i class="bi bi-folder2-open me-1"></i> Docs
                     </button>
-                    <button id="clearChatBtn" class="btn btn-sm btn-light soft-btn" type="button">
-                      <i class="bi bi-trash3 me-1"></i> Clear
+                      <button id="clearChatBtn" class="btn btn-sm btn-light soft-btn" type="button">
+                       <i class="bi bi-trash3 me-1"></i> Clear
                     </button>
                   </div>
-                </div>
+
 
                 <div class="mt-2 alert alert-warning py-2 px-3 mb-0 disclaimer">
                   <i class="bi bi-exclamation-triangle me-2"></i>
                   <strong>Medical disclaimer:</strong> This chatbot provides educational information only and is not a substitute for professional medical advice.
                 </div>
+                <!-- DOCUMENT SELECTOR -->
+                <div class="px-3 px-md-4 py-2 bg-light border-bottom">
+                 <div class="d-flex align-items-center gap-2 flex-wrap">
+                   <small class="text-muted fw-semibold">Query from:</small>
+                     <div id="docCheckboxes" class="d-flex flex-wrap gap-2">
+
+
+               <!-- Dynamically populated -->
+                </div>
+                  <button id="refreshDocsBtn" class="btn btn-sm btn-outline-secondary ms-auto" type="button">
+                     <i class="bi bi-arrow-clockwise"></i> Refresh
+                   </button>
+               </div>
+                </div>
               </div>
-            </div>
           </header>
 
           <!-- CHAT BODY -->
@@ -137,179 +153,369 @@
     </div>
   </div>
 
+  <!-- DOCUMENT MANAGEMENT MODAL -->
+<div class="modal fade" id="docsModal" tabindex="-1" aria-labelledby="docsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="docsModalLabel">
+          <i class="bi bi-folder2-open me-2"></i>Manage Documents
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Upload Section -->
+        <div class="card mb-3">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-cloud-upload me-2"></i>Upload New PDF
+          </div>
+          <div class="card-body">
+            <form id="uploadForm">
+              <div class="input-group">
+                <input type="file" class="form-control" id="pdfFile" accept=".pdf" required>
+                <button class="btn btn-primary" type="submit" id="uploadBtn">
+                  <i class="bi bi-upload me-1"></i> Upload
+                </button>
+              </div>
+              <div class="form-text">Max 50MB. Only PDF files allowed.</div>
+              <div id="uploadStatus" class="mt-2"></div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Document List -->
+        <div class="card">
+          <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
+            <span><i class="bi bi-files me-2"></i>Your Documents</span>
+            <button id="reindexBtn" class="btn btn-sm btn-light" type="button">
+              <i class="bi bi-arrow-repeat me-1"></i> Reindex All
+            </button>
+          </div>
+          <div class="card-body">
+            <div id="documentList">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    // ---- Minimal interactive chat JS (works with Flask /get endpoint) ----
-    const messagesEl = document.getElementById("messages");
-    const typingEl = document.getElementById("typing");
-    const chatBodyEl = document.getElementById("chatBody");
-    const formEl = document.getElementById("chatForm");
-    const inputEl = document.getElementById("userInput");
-    const sendBtn = document.getElementById("sendBtn");
-    const clearChatBtn = document.getElementById("clearChatBtn");
-    const toggleSourcesBtn = document.getElementById("toggleSourcesBtn");
-    const sourcesStateEl = document.getElementById("sourcesState");
-    const charCountEl = document.getElementById("charCount");
+ <script>
+  // ---- Chat JS with Multi-Document Support ----
+  const messagesEl = document.getElementById("messages");
+  const typingEl = document.getElementById("typing");
+  const chatBodyEl = document.getElementById("chatBody");
+  const formEl = document.getElementById("chatForm");
+  const inputEl = document.getElementById("userInput");
+  const sendBtn = document.getElementById("sendBtn");
+  const clearChatBtn = document.getElementById("clearChatBtn");
+  const toggleSourcesBtn = document.getElementById("toggleSourcesBtn");
+  const sourcesStateEl = document.getElementById("sourcesState");
+  const charCountEl = document.getElementById("charCount");
+  const docCheckboxesEl = document.getElementById("docCheckboxes");
+  const refreshDocsBtn = document.getElementById("refreshDocsBtn");
+  const uploadForm = document.getElementById("uploadForm");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const uploadStatus = document.getElementById("uploadStatus");
+  const reindexBtn = document.getElementById("reindexBtn");
+  const documentListEl = document.getElementById("documentList");
 
-    let showSources = true;
+  let showSources = true;
+  let documents = [];
 
-    function scrollToBottom() {
-      chatBodyEl.scrollTop = chatBodyEl.scrollHeight;
-    }
+  function scrollToBottom() {
+    chatBodyEl.scrollTop = chatBodyEl.scrollHeight;
+  }
 
-    function escapeHtml(str) {
-      return str.replace(/[&<>"']/g, s => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
-      }[s]));
-    }
+  function escapeHtml(str) {
+    return str.replace(/[&<>"']/g, s => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"
+    }[s]));
+  }
 
-    function nowTime() {
-      const d = new Date();
-      return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-    }
+  function nowTime() {
+    const d = new Date();
+    return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
 
-    function addMessage({ role, text, sources = [] }) {
-      const isUser = role === "user";
-      const msg = document.createElement("div");
-      msg.className = `msg-row ${isUser ? "msg-user" : "msg-bot"}`;
+  function addMessage({ role, text, sources = [] }) {
+    const isUser = role === "user";
+    const msg = document.createElement("div");
+    msg.className = `msg-row ${isUser ? "msg-user" : "msg-bot"}`;
 
-      const safeText = escapeHtml(text).replace(/\n/g, "<br>");
-      const sourcesHtml = (sources && sources.length)
-  ? `
-    <details class="sources mt-2 ${showSources ? "" : "d-none"}">
-      <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
-      <ul class="mt-2 mb-0">
-        ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
-      </ul>
-    </details>
-  `
-  : "";
+    const safeText = escapeHtml(text).replace(/\n/g, "<br>");
+    const sourcesHtml = (sources && sources.length)
+? `
+  <details class="sources mt-2 ${showSources ? "" : "d-none"}">
+    <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
+    <ul class="mt-2 mb-0">
+      ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+    </ul>
+  </details>
+`
+: "";
 
-
-      msg.innerHTML = `
-        <div class="bubble ${isUser ? "user-bubble" : "bot-bubble"}">
-          <div class="bubble-top">
-            <span class="${isUser ? "user-avatar" : "bot-avatar"}">
-              <i class="bi ${isUser ? "bi-person-fill" : "bi-heart-pulse"}"></i>
-            </span>
-            <span class="bubble-role">${isUser ? "You" : "MediRAG"}</span>
-            <span class="bubble-time ms-auto">${nowTime()}</span>
-          </div>
-          <div class="bubble-text">${safeText}</div>
-          ${sourcesHtml}
+    msg.innerHTML = `
+      <div class="bubble ${isUser ? "user-bubble" : "bot-bubble"}">
+        <div class="bubble-top">
+          <span class="${isUser ? "user-avatar" : "bot-avatar"}">
+            <i class="bi ${isUser ? "bi-person-fill" : "bi-heart-pulse"}"></i>
+          </span>
+          <span class="bubble-role">${isUser ? "You" : "MediRAG"}</span>
+          <span class="bubble-time ms-auto">${nowTime()}</span>
         </div>
-      `;
+        <div class="bubble-text">${safeText}</div>
+        ${sourcesHtml}
+      </div>
+    `;
 
-      messagesEl.appendChild(msg);
-      scrollToBottom();
+    messagesEl.appendChild(msg);
+    scrollToBottom();
+  }
+
+  function setTyping(isTyping) {
+    typingEl.classList.toggle("d-none", !isTyping);
+    scrollToBottom();
+  }
+
+  function autoGrow(el) {
+    el.style.height = "auto";
+    el.style.height = Math.min(el.scrollHeight, 160) + "px";
+  }
+
+  // Fetch and render documents
+  async function loadDocuments() {
+    try {
+      const res = await fetch("/documents");
+      const data = await res.json();
+      documents = data.documents || [];
+      renderDocumentCheckboxes();
+      renderDocumentList();
+    } catch (err) {
+      console.error("Failed to load documents:", err);
+    }
+  }
+
+  function renderDocumentCheckboxes() {
+    docCheckboxesEl.innerHTML = documents.map(doc => `
+      <div class="form-check">
+        <input class="form-check-input doc-checkbox" type="checkbox" value="${doc.doc_id}" id="doc-${doc.doc_id}" ${doc.is_protected ? 'checked' : ''}>
+        <label class="form-check-label small" for="doc-${doc.doc_id}">
+          ${escapeHtml(doc.filename)} ${doc.is_protected ? '<i class="bi bi-lock-fill text-muted"></i>' : ''}
+        </label>
+      </div>
+    `).join("");
+  }
+
+  function renderDocumentList() {
+    if (documents.length === 0) {
+      documentListEl.innerHTML = '<p class="text-muted">No documents uploaded yet.</p>';
+      return;
     }
 
-    function setTyping(isTyping) {
-      typingEl.classList.toggle("d-none", !isTyping);
-      scrollToBottom();
-    }
+    documentListEl.innerHTML = documents.map(doc => `
+      <div class="d-flex justify-content-between align-items-center border-bottom py-2">
+        <div>
+          <strong>${escapeHtml(doc.filename)}</strong>
+          ${doc.is_protected ? '<span class="badge bg-secondary ms-2">Protected</span>' : ''}
+          <br>
+          <small class="text-muted">
+            ${doc.num_chunks} chunks • Status: ${doc.status} • Uploaded: ${new Date(doc.upload_date).toLocaleDateString()}
+          </small>
+        </div>
+        <div>
+          ${doc.is_protected ? '' : `<button class="btn btn-sm btn-danger delete-doc-btn" data-doc-id="${doc.doc_id}" data-filename="${escapeHtml(doc.filename)}"><i class="bi bi-trash"></i></button>`}
+        </div>
+      </div>
+    `).join("");
 
-    // Auto-grow textarea
-    function autoGrow(el) {
-      el.style.height = "auto";
-      el.style.height = Math.min(el.scrollHeight, 160) + "px";
-    }
-
-    inputEl.addEventListener("input", () => {
-      autoGrow(inputEl);
-      charCountEl.textContent = `${inputEl.value.length} / 1200`;
-    });
-
-    // Send on Enter (Shift+Enter for newline)
-    inputEl.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        formEl.requestSubmit();
-      }
-    });
-
-    // Quick prompt chips
-    document.querySelectorAll(".chip").forEach(btn => {
-      btn.addEventListener("click", () => {
-        inputEl.value = btn.dataset.prompt || "";
-        autoGrow(inputEl);
-        charCountEl.textContent = `${inputEl.value.length} / 1200`;
-        inputEl.focus();
-      });
-    });
-
-    // Clear chat
-    clearChatBtn.addEventListener("click", () => {
-      messagesEl.innerHTML = "";
-      setTyping(false);
-      scrollToBottom();
-    });
-
-    // Toggle sources
-    toggleSourcesBtn.addEventListener("click", () => {
-      showSources = !showSources;
-      sourcesStateEl.textContent = showSources ? "On" : "Off";
-      // Re-render not implemented; this only affects new messages.
-    });
-
-    // Main submit handler
-    formEl.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const text = inputEl.value.trim();
-      if (!text) return;
-
-      addMessage({ role: "user", text });
-      inputEl.value = "";
-      autoGrow(inputEl);
-      charCountEl.textContent = "0 / 1200";
-
-      setTyping(true);
-      sendBtn.disabled = true;
-
-      try {
-        // This matches common Flask patterns: request.form["msg"]
-        const body = new URLSearchParams();
-        body.append("msg", text);
-
-        const res = await fetch("/get", {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-          body
-        });
-
-        const raw = await res.text();
-
-        // If your backend returns plain text (repo default): show it.
-        // If later you return JSON like {"answer":"...", "sources":["p12","p45"]},
-        // this will detect and render sources.
-        let answerText = raw;
-        let sources = [];
+    // Attach delete handlers
+    document.querySelectorAll(".delete-doc-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const docId = btn.dataset.docId;
+        const filename = btn.dataset.filename;
+        if (!confirm(`Delete "${filename}"? This will remove all indexed content.`)) return;
 
         try {
-          const maybe = JSON.parse(raw);
-          if (maybe && typeof maybe === "object") {
-            answerText = maybe.answer || maybe.text || raw;
-            sources = Array.isArray(maybe.sources) ? maybe.sources : [];
+          const res = await fetch(`/delete/${docId}`, { method: "DELETE" });
+          const data = await res.json();
+          if (data.success) {
+            alert(data.message);
+            loadDocuments();
+          } else {
+            alert("Error: " + data.error);
           }
-        } catch (_) {}
-
-        addMessage({ role: "bot", text: answerText, sources });
-      } catch (err) {
-        addMessage({
-          role: "bot",
-          text: "Sorry — I couldn’t reach the server. Please try again."
-        });
-      } finally {
-        setTyping(false);
-        sendBtn.disabled = false;
-        inputEl.focus();
-      }
+        } catch (err) {
+          alert("Failed to delete document");
+        }
+      });
     });
+  }
 
-    // Initial focus
-    inputEl.focus();
-  </script>
+  function getSelectedDocIds() {
+    const checkboxes = document.querySelectorAll(".doc-checkbox:checked");
+    return Array.from(checkboxes).map(cb => cb.value);
+  }
+
+  // Upload handler
+  uploadForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fileInput = document.getElementById("pdfFile");
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    uploadBtn.disabled = true;
+    uploadStatus.innerHTML = '<div class="alert alert-info">Uploading...</div>';
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const res = await fetch("/upload", {
+        method: "POST",
+        body: formData
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        uploadStatus.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+        fileInput.value = "";
+        loadDocuments();
+      } else {
+        uploadStatus.innerHTML = `<div class="alert alert-danger">Error: ${data.error}</div>`;
+      }
+    } catch (err) {
+      uploadStatus.innerHTML = '<div class="alert alert-danger">Upload failed</div>';
+    } finally {
+      uploadBtn.disabled = false;
+    }
+  });
+
+  // Reindex handler
+  reindexBtn.addEventListener("click", async () => {
+    if (!confirm("Reindex all documents? This may take 2-5 minutes.")) return;
+
+    reindexBtn.disabled = true;
+    reindexBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Reindexing...';
+
+    try {
+      const res = await fetch("/reindex", { method: "POST" });
+      const data = await res.json();
+      
+      if (data.success) {
+        alert(data.message);
+        loadDocuments();
+      } else {
+        alert("Error: " + data.error);
+      }
+    } catch (err) {
+      alert("Reindex failed");
+    } finally {
+      reindexBtn.disabled = false;
+      reindexBtn.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i> Reindex All';
+    }
+  });
+
+  // Refresh documents
+  refreshDocsBtn.addEventListener("click", loadDocuments);
+
+  // Input handlers
+  inputEl.addEventListener("input", () => {
+    autoGrow(inputEl);
+    charCountEl.textContent = `${inputEl.value.length} / 1200`;
+  });
+
+  inputEl.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      formEl.requestSubmit();
+    }
+  });
+
+  document.querySelectorAll(".chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      inputEl.value = btn.dataset.prompt || "";
+      autoGrow(inputEl);
+      charCountEl.textContent = `${inputEl.value.length} / 1200`;
+      inputEl.focus();
+    });
+  });
+
+  clearChatBtn.addEventListener("click", () => {
+    messagesEl.innerHTML = "";
+    setTyping(false);
+    scrollToBottom();
+  });
+
+  toggleSourcesBtn.addEventListener("click", () => {
+    showSources = !showSources;
+    sourcesStateEl.textContent = showSources ? "On" : "Off";
+  });
+
+  // Main submit handler with document filtering
+  formEl.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const text = inputEl.value.trim();
+    if (!text) return;
+
+    addMessage({ role: "user", text });
+    inputEl.value = "";
+    autoGrow(inputEl);
+    charCountEl.textContent = "0 / 1200";
+
+    setTyping(true);
+    sendBtn.disabled = true;
+
+    try {
+      const selectedDocs = getSelectedDocIds();
+      const body = new URLSearchParams();
+      body.append("msg", text);
+      if (selectedDocs.length > 0) {
+        body.append("doc_ids", selectedDocs.join(","));
+      }
+
+      const res = await fetch("/get", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+        body
+      });
+
+      const raw = await res.text();
+      let answerText = raw;
+      let sources = [];
+
+      try {
+        const maybe = JSON.parse(raw);
+        if (maybe && typeof maybe === "object") {
+          answerText = maybe.answer || maybe.text || raw;
+          sources = Array.isArray(maybe.sources) ? maybe.sources : [];
+        }
+      } catch (_) {}
+
+      addMessage({ role: "bot", text: answerText, sources });
+    } catch (err) {
+      addMessage({
+        role: "bot",
+        text: "Sorry — I couldn't reach the server. Please try again."
+      });
+    } finally {
+      setTyping(false);
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }
+  });
+
+  // Initialize
+  loadDocuments();
+  inputEl.focus();
+</script>
 </body>
 </html>

@@ -1,0 +1,729 @@
+[
+  {
+    "id": "q01",
+    "question": "What is acne?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Acne is a common skin disease characterized by pimples on the face, chest, and back. It occurs when the pores of the skin become clogged with oil, dead skin cells, and bacteria. The medical term for common acne is acne vulgaris.",
+    "latency_ms": 3128,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c395",
+      "Medical_book.pdf • p.39.0 • Medical_book.pdf_p39_c417",
+      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c399"
+    ],
+    "must_include": [
+      "acne"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q02",
+    "question": "What are common symptoms of asthma?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Common symptoms of asthma include wheezing, shortness of breath, coughing, and a feeling of \"tightness\" in the chest. Children may also experience itching on their back or neck at the start of an asthma attack.",
+    "latency_ms": 1771,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.395.0 • Medical_book.pdf_p395_c5349",
+      "Medical_book.pdf • p.394.0 • Medical_book.pdf_p394_c5338",
+      "Medical_book.pdf • p.395.0 • Medical_book.pdf_p395_c5343"
+    ],
+    "must_include": [
+      "asthma"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": 0.888888888888889,
+    "retrieval_precision": 0.4,
+    "found_correct_page": true
+  },
+  {
+    "id": "q03",
+    "question": "What is anemia?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Anemia is a condition characterized by abnormally low levels of healthy red blood cells or hemoglobin, which is the component of red blood cells that delivers oxygen to tissues throughout the body.",
+    "latency_ms": 2073,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c2559",
+      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c2558",
+      "Medical_book.pdf • p.566.0 • Medical_book.pdf_p566_c7652"
+    ],
+    "must_include": [
+      "anemia"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q04",
+    "question": "What is appendicitis?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Appendicitis is an inflammation of the appendix, which is the worm-shaped pouch attached to the cecum, the beginning of the large intestine. It is a medical emergency, and if left untreated, the appendix may rupture and cause a potentially fatal infection.",
+    "latency_ms": 1557,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c4788",
+      "Medical_book.pdf • p.357.0 • Medical_book.pdf_p357_c4815",
+      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c4793"
+    ],
+    "must_include": [
+      "appendicitis"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q05",
+    "question": "What causes Alzheimer's disease?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "The cause or causes of Alzheimer’s disease are unknown.",
+    "latency_ms": 954,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.148.0 • Medical_book.pdf_p148_c1915",
+      "Medical_book.pdf • p.150.0 • Medical_book.pdf_p150_c1952",
+      "Medical_book.pdf • p.148.0 • Medical_book.pdf_p148_c1921"
+    ],
+    "must_include": [
+      "alzheimer"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q06",
+    "question": "What is diabetes mellitus?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Diabetes mellitus is a condition where a person either does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar, a condition called hyperglycemia.",
+    "latency_ms": 1686,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.544.0 • Medical_book.pdf_p544_c7369",
+      "Medical_book.pdf • p.542.0 • Medical_book.pdf_p542_c7339",
+      "Medical_book.pdf • p.543.0 • Medical_book.pdf_p543_c7342"
+    ],
+    "must_include": [
+      "diabetes"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": 0.8813559322033899,
+    "retrieval_precision": 0.6,
+    "found_correct_page": true
+  },
+  {
+    "id": "q07",
+    "question": "What is hypertension?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Hypertension is high blood pressure. It usually has no symptoms, so it must be checked to be known.",
+    "latency_ms": 920,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.219.0 • Medical_book.pdf_p219_c2913",
+      "Medical_book.pdf • p.411.0 • Medical_book.pdf_p411_c5568",
+      "Medical_book.pdf • p.143.0 • Medical_book.pdf_p143_c1839"
+    ],
+    "must_include": [
+      "hypertension"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q08",
+    "question": "What are common risk factors for breast cancer?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Common risk factors for breast cancer include family history of breast cancer in a mother or sister, early onset of menstruation and late menopause, and reproductive history such as having no children or having children after age 30. Women who have never breastfed also have an increased risk.",
+    "latency_ms": 2364,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c8021",
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c8020",
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c8022"
+    ],
+    "must_include": [
+      "breast cancer"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": 0.7865168539325843,
+    "retrieval_precision": 0.2,
+    "found_correct_page": true
+  },
+  {
+    "id": "q09",
+    "question": "What is Parkinson disease?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Parkinson’s disease is the most common form of parkinsonism, characterized by symptoms such as tremor, rigidity, slowness of movement (bradykinesia), and poor balance and coordination. It is seen more frequently with advancing age. The immediate cause is the lack of the neurotransmitter dopamine in the brain.",
+    "latency_ms": 1442,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.309.0 • Medical_book.pdf_p309_c4149",
+      "Medical_book.pdf • p.311.0 • Medical_book.pdf_p311_c4176",
+      "Medical_book.pdf • p.309.0 • Medical_book.pdf_p309_c4150"
+    ],
+    "must_include": [
+      "parkinson"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": 0.8636363636363636,
+    "retrieval_precision": 0.4,
+    "found_correct_page": true
+  },
+  {
+    "id": "q10",
+    "question": "What is osteoarthritis?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual degeneration of the cartilage of the joints.",
+    "latency_ms": 1005,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.635.0 • Medical_book.pdf_p635_c8625",
+      "Medical_book.pdf • p.320.0 • Medical_book.pdf_p320_c4299",
+      "Medical_book.pdf • p.572.0 • Medical_book.pdf_p572_c7742"
+    ],
+    "must_include": [
+      "osteoarthritis"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": 1.0,
+    "retrieval_precision": 0.6,
+    "found_correct_page": true
+  },
+  {
+    "id": "q11",
+    "question": "What is pneumonia?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "I don't know.",
+    "latency_ms": 691,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.611.0 • Medical_book.pdf_p611_c8294",
+      "Medical_book.pdf • p.281.0 • Medical_book.pdf_p281_c3758",
+      "Medical_book.pdf • p.614.0 • Medical_book.pdf_p614_c8337"
+    ],
+    "must_include": [
+      "pneumonia"
+    ],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [
+      "pneumonia"
+    ],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": false,
+    "faithfulness": 0.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q12",
+    "question": "What is bipolar disorder?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Bipolar disorder, or manic-depressive disorder, is a mood disorder that causes radical emotional changes and mood swings, from manic highs to depressive lows. The majority of bipolar individuals experience alternating episodes of mania and depression.",
+    "latency_ms": 1339,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.499.0 • Medical_book.pdf_p499_c6756",
+      "Medical_book.pdf • p.500.0 • Medical_book.pdf_p500_c6761",
+      "Medical_book.pdf • p.503.0 • Medical_book.pdf_p503_c6826"
+    ],
+    "must_include": [
+      "bipolar"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q13",
+    "question": "What is a cataract?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "I don't know.",
+    "latency_ms": 716,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.399.0 • Medical_book.pdf_p399_c5409",
+      "Medical_book.pdf • p.399.0 • Medical_book.pdf_p399_c5408",
+      "Medical_book.pdf • p.399.0 • Medical_book.pdf_p399_c5410"
+    ],
+    "must_include": [
+      "cataract"
+    ],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [
+      "cataract"
+    ],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [
+      "cataract"
+    ],
+    "refusal_ok": false,
+    "faithfulness": 0.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q14",
+    "question": "What are symptoms of dehydration?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Symptoms of dehydration include decreased urination, dizziness or lightheadedness, dry mouth, increased thirst, and wrinkled skin.",
+    "latency_ms": 1025,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.279.0 • Medical_book.pdf_p279_c3730",
+      "Medical_book.pdf • p.68.0 • Medical_book.pdf_p68_c799",
+      "Medical_book.pdf • p.438.0 • Medical_book.pdf_p438_c5920"
+    ],
+    "must_include": [
+      "dehydration"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q15",
+    "question": "What is eczema?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Eczema is a general term used to describe a variety of conditions that cause an itchy, inflamed skin rash. Atopic dermatitis, a form of eczema, is a non-contagious disorder characterized by chronically inflamed skin and sometimes intolerable itching.",
+    "latency_ms": 1836,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.417.0 • Medical_book.pdf_p417_c5636",
+      "Medical_book.pdf • p.417.0 • Medical_book.pdf_p417_c5638",
+      "Medical_book.pdf • p.243.0 • Medical_book.pdf_p243_c3245"
+    ],
+    "must_include": [
+      "eczema"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q16",
+    "question": "What is fibromyalgia?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "I don't know.",
+    "latency_ms": 563,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.496.0 • Medical_book.pdf_p496_c6711",
+      "Medical_book.pdf • p.572.0 • Medical_book.pdf_p572_c7743",
+      "Medical_book.pdf • p.359.0 • Medical_book.pdf_p359_c4843"
+    ],
+    "must_include": [
+      "fibromyalgia"
+    ],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [
+      "fibromyalgia"
+    ],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [
+      "fibromyalgia"
+    ],
+    "refusal_ok": false,
+    "faithfulness": 0.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q17",
+    "question": "What is gout?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Gout is defined by attacks of (arthritic) painful, reddened joints, and is often accompanied by hard lumps in the painful joints. Commonly, gout occurs in males in their 40s and 50s and is associated with high levels of uric acid (hyperuricemia). The most common joint affected is the big toe.",
+    "latency_ms": 1766,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.295.0 • Medical_book.pdf_p295_c3963",
+      "Medical_book.pdf • p.295.0 • Medical_book.pdf_p295_c3964",
+      "Medical_book.pdf • p.296.0 • Medical_book.pdf_p296_c3968"
+    ],
+    "must_include": [
+      "gout"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q18",
+    "question": "What is hepatitis?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Hepatitis is inflammation of the liver, caused by infectious or toxic agents and characterized by jaundice, fever, liver enlargement, and abdominal pain.",
+    "latency_ms": 1245,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.387.0 • Medical_book.pdf_p387_c5231",
+      "Medical_book.pdf • p.531.0 • Medical_book.pdf_p531_c7189",
+      "Medical_book.pdf • p.440.0 • Medical_book.pdf_p440_c5951"
+    ],
+    "must_include": [
+      "hepatitis"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q19",
+    "question": "What is influenza?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "I don't know.",
+    "latency_ms": 617,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.239.0 • Medical_book.pdf_p239_c3190",
+      "Medical_book.pdf • p.610.0 • Medical_book.pdf_p610_c8276",
+      "Medical_book.pdf • p.329.0 • Medical_book.pdf_p329_c4429"
+    ],
+    "must_include": [
+      "influenza"
+    ],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [
+      "influenza"
+    ],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": false,
+    "faithfulness": 0.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q20",
+    "question": "What is a kidney stone?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": false,
+    "answer": "Kidney stones, also known as calculi, are crystalline masses that form from the minerals and proteins that naturally occur in urine.",
+    "latency_ms": 1354,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.524.0 • Medical_book.pdf_p524_c7094",
+      "Medical_book.pdf • p.520.0 • Medical_book.pdf_p520_c7045",
+      "Medical_book.pdf • p.58.0 • Medical_book.pdf_p58_c668"
+    ],
+    "must_include": [
+      "kidney stone"
+    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q21",
+    "question": "What is the capital of France?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": true,
+    "answer": "I don't know.",
+    "latency_ms": 1860,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.255.0 • Medical_book.pdf_p255_c3406",
+      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c400",
+      "Medical_book.pdf • p.243.0 • Medical_book.pdf_p243_c3243"
+    ],
+    "must_include": [],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": null,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q22",
+    "question": "How do I invest in the stock market?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": true,
+    "answer": "I don't know.",
+    "latency_ms": 502,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.587.0 • Medical_book.pdf_p587_c7945",
+      "Medical_book.pdf • p.365.0 • Medical_book.pdf_p365_c4927",
+      "Medical_book.pdf • p.606.0 • Medical_book.pdf_p606_c8214"
+    ],
+    "must_include": [],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": null,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q23",
+    "question": "Write Python code to sort a list of integers.",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": true,
+    "answer": "I don't know.",
+    "latency_ms": 1023,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.4.0 • Medical_book.pdf_p4_c11",
+      "Medical_book.pdf • p.535.0 • Medical_book.pdf_p535_c7233",
+      "Medical_book.pdf • p.333.0 • Medical_book.pdf_p333_c4491"
+    ],
+    "must_include": [],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": null,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q24",
+    "question": "How do I submit an insurance claim?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": true,
+    "answer": "I don't know.",
+    "latency_ms": 513,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.19.0 • Medical_book.pdf_p19_c141",
+      "Medical_book.pdf • p.603.0 • Medical_book.pdf_p603_c8169",
+      "Medical_book.pdf • p.118.0 • Medical_book.pdf_p118_c1505"
+    ],
+    "must_include": [],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": null,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  },
+  {
+    "id": "q25",
+    "question": "Who won the 2022 FIFA World Cup?",
+    "mode": "rag",
+    "k": 5,
+    "scope": null,
+    "should_refuse": true,
+    "answer": "I don't know.",
+    "latency_ms": 656,
+    "retrieved_chunks": 5,
+    "citations_present": true,
+    "sources": [
+      "Medical_book.pdf • p.358.0 • Medical_book.pdf_p358_c4834",
+      "Medical_book.pdf • p.497.0 • Medical_book.pdf_p497_c6716",
+      "Medical_book.pdf • p.358.0 • Medical_book.pdf_p358_c4835"
+    ],
+    "must_include": [],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 0,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": null,
+    "f1_score": null,
+    "retrieval_precision": null,
+    "found_correct_page": null
+  }
+]

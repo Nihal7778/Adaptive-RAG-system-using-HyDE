@@ -1,5 +1,11 @@
 # End-End-MediRAG-GEN-AI
 
+
+MediRAG – Document-Grounded Medical Q&A (RAG)
+
+MediRAG is a Retrieval-Augmented Generation (RAG) chatbot that answers questions using PDF documents as the source of truth. The system builds a semantic index using embeddings + Pinecone, retrieves the most relevant chunks for a user query, and generates a concise answer grounded in the retrieved text with citations (doc + page).
+
+
 ### STEP01 Create a conda environment 
 ``` bash
 conda - create -n llmapp python = 3.12-y
@@ -16,6 +22,117 @@ conda activate llmapp
 ``` bash
 pip install -r requirement.txt
 ```
+
+
+### STEP03 Create .env
+``` bash
+OPENAI_API_KEY=...
+PINECONE_API_KEY=...
+PINECONE_INDEX_NAME=medicalbot
+```
+
+### STEP04 
+```bash
+run the command to store embeddings to pinecone
+python store_index.py
+```
+
+```bash
+# Finally run the command
+python app.py
+```
+
+``` bash
+Now, 
+open up localhost: 
+```
+
+``` bash
+Techstack used:
+Python
+LangChain
+Flask
+GPT
+Pinecone
+``` 
+
+### AWS CICD Deployment with Github Actions
+
+``` bash
+1. Login to AWS console
+```
+
+``` bash
+2. Create IAM User for deployment
+
+#with specific access
+
+1. EC2 access : It is virtual machine
+
+2. ECR: Elastic Container registry to save your docker image in aws
+
+
+#Description: About the deployment
+
+1. Build docker image of the source code
+
+2. Push your docker image to ECR
+
+3. Launch Your EC2 
+
+4. Pull Your image from ECR in EC2
+
+5. Lauch your docker image in EC2
+
+#Policy:
+
+1. AmazonEC2ContainerRegistryFullAccess
+
+2. AmazonEC2FullAccess
+
+```
+
+
+### 3. Create ECR repo to store/save docker image
+ ```bash
+ SAVE the URI: 343253677979.dkr.ecr.us-east-1.amazonaws.com/medicalchatbot
+ ```
+
+
+
+### 4. Create EC2 machine (Ubuntu)
+
+
+
+
+### 5. Open EC2 and Install docker in EC2 Machine:
+
+```bash
+# Update system
+sudo yum update -y
+
+# Install Docker
+sudo yum install docker -y
+
+# Start Docker service
+sudo systemctl start docker
+
+# Enable Docker on boot
+sudo systemctl enable docker
+
+# Add user to docker group
+sudo usermod -aG docker ec2-user
+
+# Apply group changes
+newgrp docker
+
+# Verify Docker works
+docker --version
+docker ps
+
+```
+
+
 
 
 

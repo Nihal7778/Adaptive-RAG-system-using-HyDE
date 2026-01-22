@@ -1,7 +1,8 @@
-from langchain_classic.document_loaders import PyPDFLoader, DirectoryLoader
-from langchain_classic.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader, DirectoryLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
+import json
 
 
 #Extracting data from PDF files
@@ -15,7 +16,7 @@ def download_hugging_face_embeddings():
 def load_pdf_data(file_path):
     loader = DirectoryLoader(file_path,
                              glob ="*.pdf",
-                             loader_cls=PyPDFLoader)
+                             loader_cls= PyPDFLoader)
     
 
     documents = loader.load()
@@ -25,22 +26,49 @@ def load_pdf_data(file_path):
 
 
 
+def load_metadata():
+    """Load metadata.json"""
+    metadata_path = "Data/metadata.json"
+    if os.path.exists(metadata_path):
+        with open(metadata_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
+
+
 
 #Split the Data into Text Chunks
 
 def text_split(extracted_data):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
-        chunk_overlap=200
+        chunk_overlap=20
     )
     text_chunks = text_splitter.split_documents(extracted_data)
+    
+    # NEW: Load metadata once outside loop
+    metadata = load_metadata()
 
     for i, d in enumerate(text_chunks):
         meta = d.metadata or {}
 
         # doc name from source path (by default pypdfloader usually sets "source")
         src = meta.get("source", "")
-        meta["doc_name"] = os.path.basename(src) if src else meta.get("doc_name", "document")
+        filename = os.path.basename(src) if src else meta.get("doc_name", "document")
+        meta["doc_name"] = filename
+
+        # NEW: Find doc_id from metadata.json (ADD THIS SECTION HERE)
+        doc_id = None
+        for did, info in metadata.items():
+            if info.get("filename") == filename:
+                doc_id = did
+                break
+        
+        # NEW: Add doc_id to metadata
+        if doc_id:
+            meta["doc_id"] = doc_id
+        else:
+            # Fallback: if not in metadata, use filename as doc_id
+            meta["doc_id"] = filename.replace(".pdf", "")
 
         # page is typically 0 based in loaders we convert to 1 based display
         if "page" in meta and isinstance(meta["page"], int):
@@ -55,28 +83,38 @@ def text_split(extracted_data):
 
     return text_chunks
 
+
 def build_sources(context_docs):
+    """
+    Return clean, deduped sources as:
+    'filename.pdf — Page N'
+    """
     sources = []
     seen = set()
 
     for d in context_docs or []:
         meta = getattr(d, "metadata", {}) or {}
-        doc_name = meta.get("doc_name") or os.path.basename(str(meta.get("source", "document")))
-        page = meta.get("page_display") or (meta.get("page") + 1 if isinstance(meta.get("page"), int) else None)
-        chunk_id = meta.get("chunk_id")
 
-        if page is not None:
-            label = f"{doc_name} • p.{page}"
+        # doc name
+        src = meta.get("source", "")
+        doc_name = meta.get("doc_name") or (os.path.basename(src) if src else "document.pdf")
+
+        # page number (prefer page_display if you added it)
+        page = meta.get("page_display")
+        if page is None and isinstance(meta.get("page"), int):
+            page = meta["page"] + 1  # convert 0-based to 1-based
+
+        # Build a clean label
+        if page:
+            key = (doc_name, page)
+            label = f"{doc_name} . Page {page}"
         else:
+            key = (doc_name, None)
             label = f"{doc_name}"
 
-        if chunk_id is not None:
-            label = f"{label} • {chunk_id}"
-
-        label = str(label)
-
-        if label not in seen:
-            seen.add(label)
+        # Deduplicate
+        if key not in seen:
+            seen.add(key)
             sources.append(label)
 
     return sources

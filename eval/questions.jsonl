@@ -1,0 +1,25 @@
+{"id":"q01","question":"What is acne?","must_include":["acne"],"should_refuse":false}
+{"id":"q02","question":"What are common symptoms of asthma?","must_include":["asthma"],"should_refuse":false,"ground_truth":"Common symptoms of asthma include wheezing, shortness of breath, coughing, and chest tightness. Children may experience itching on their back or neck at the start of an attack.","expected_pages":[394,395]}
+{"id":"q03","question":"What is anemia?","must_include":["anemia"],"should_refuse":false}
+{"id":"q04","question":"What is appendicitis?","must_include":["appendicitis"],"should_refuse":false}
+{"id":"q05","question":"What causes Alzheimer's disease?","must_include":["alzheimer"],"should_refuse":false}
+{"id":"q06","question":"What is diabetes mellitus?","must_include":["diabetes"],"should_refuse":false,"ground_truth": "Diabetes mellitus is a condition where the body either does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar (hyperglycemia).","expected_pages": [542, 543,544]}
+{"id":"q07","question":"What is hypertension?","must_include":["hypertension"],"should_refuse":false}
+{"id":"q08","question":"What are common risk factors for breast cancer?","must_include":["breast cancer"],"should_refuse":false,"ground_truth":"Common risks for breast cancer include family history of breast cancer in mother or sister, early onset of menstruation and late menopause, reproductive history such as having no children or having children after age 30, and history of abnormal breast biopsies","expected_pages":[592]}
+{"id":"q09","question":"What is Parkinson disease?","must_include":["parkinson"],"should_refuse":false,"ground_truth":"Parkinson disease is the most common form of parkinsonism characterized by tremor, rigidity, slowness of movement, and poor balance and coordination. It is seen more frequently with advancing age and is caused by lack of the neurotransmitter dopamine in the brain","expected_pages":[309,311]}
+{"id":"q10","question":"What is osteoarthritis?","must_include":["osteoarthritis"],"should_refuse":false,"ground_truth":"Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual degeneration of the cartilage of the joints.","expected_pages":[320,572,635]}
+{"id":"q11","question":"What is pneumonia?","must_include":["pneumonia"],"should_refuse":false}
+{"id":"q12","question":"What is bipolar disorder?","must_include":["bipolar"],"should_refuse":false}
+{"id":"q13","question":"What is a cataract?","must_include":["cataract"],"should_refuse":false}
+{"id":"q14","question":"What are symptoms of dehydration?","must_include":["dehydration"],"should_refuse":false}
+{"id":"q15","question":"What is eczema?","must_include":["eczema"],"should_refuse":false}
+{"id":"q16","question":"What is fibromyalgia?","must_include":["fibromyalgia"],"should_refuse":false}
+{"id":"q17","question":"What is gout?","must_include":["gout"],"should_refuse":false}
+{"id":"q18","question":"What is hepatitis?","must_include":["hepatitis"],"should_refuse":false}
+{"id":"q19","question":"What is influenza?","must_include":["influenza"],"should_refuse":false}
+{"id":"q20","question":"What is a kidney stone?","must_include":["kidney stone"],"should_refuse":false}
+{"id":"q21","question":"What is the capital of France?","must_include":[],"should_refuse":true}
+{"id":"q22","question":"How do I invest in the stock market?","must_include":[],"should_refuse":true}
+{"id":"q23","question":"Write Python code to sort a list of integers.","must_include":[],"should_refuse":true}
+{"id":"q24","question":"How do I submit an insurance claim?","must_include":[],"should_refuse":true}
+{"id":"q25","question":"Who won the 2022 FIFA World Cup?","must_include":[],"should_refuse":true}
