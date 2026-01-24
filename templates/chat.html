@@ -49,6 +49,9 @@
                       <button id="clearChatBtn" class="btn btn-sm btn-light soft-btn" type="button">
                        <i class="bi bi-trash3 me-1"></i> Clear
                     </button>
+                    <button id="clearHistoryBtn" class="btn btn-sm btn-warning soft-btn" type="button">
+                      <i class="bi bi-clock-history me-1"></i> Clear Memory
+                  </button>
                   </div>
 
 
@@ -468,6 +471,12 @@
     messagesEl.innerHTML = "";
     setTyping(false);
     scrollToBottom();
+  });
+
+  // Clear conversation memory
+  document.getElementById("clearHistoryBtn").addEventListener("click", async () => {
+  await fetch("/clear_history", {method: "POST"});
+  alert("Conversation memory cleared!");
   });
 
   toggleSourcesBtn.addEventListener("click", () => {
