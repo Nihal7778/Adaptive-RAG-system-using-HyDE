@@ -15,13 +15,10 @@ import time
 from flask import session
 import uuid
 
-from flask import session
-import uuid
-
-app.secret_key = 'your-secret-key-here-change-in-production'  # For sessions
-conversations = {}  # {session_id: [(q, a), (q, a), ...]} # For sessions
-
 app = Flask(__name__)
+app.secret_key = 'your-secret-key-here-change-in-production'
+conversations = {}
+
 load_dotenv()
 
 # Upload config 
@@ -373,7 +370,7 @@ def chat_hyde():
     start_time = time.time()
     retrieved_docs, hypothesis, gen_time = hyde_retriever.retrieve_with_hyde(
         docsearch, 
-        msg, 
+        msg_with_context, 
         k=5,
         filter_dict=filter_dict
     )
