@@ -1,0 +1,369 @@
+{
+  "metadata": {
+    "timestamp": "2026-01-23T18:30:07.575427",
+    "total_questions": 25,
+    "k": 5
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "question": "What is acne?",
+      "baseline": {
+        "answer": "Acne is a common skin disease characterized by pimples on the face, chest, and back. It occurs when the pores of the skin become clogged with oil, dead skin cells, and bacteria. Acne vulgaris is the medical term for common acne.",
+        "latency": 3.0457019805908203,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Acne is a skin condition that occurs when pores or hair follicles become blocked, allowing sebum to collect inside. It can result in small swellings on the skin surface and may involve inflammation due to bacteria and dead skin cells.",
+        "hypothesis": "Acne is a chronic inflammatory skin condition primarily affecting the pilosebaceous units, characterized by the formation of various lesions such as comedones, papules, pustules, and cysts. It results from a combination of increased sebum production, hyperkeratinization of the follicular epithelium, and the proliferation of Propionibacterium acnes, leading to obstruction of hair follicles and subsequent inflammation. Acne commonly presents during adolescence but can persist into adulthood, necessitating a multifactorial approach for effective management.",
+        "latency": 5.370469093322754,
+        "hypothesis_time": 2.7139248847961426,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q02",
+      "question": "What are common symptoms of asthma?",
+      "baseline": {
+        "answer": "Common symptoms of asthma include narrowed airways, nasal polyps, increased amounts of nasal secretions, and skin changes like atopic dermatitis or eczema. Breathing becomes shallow and takes more effort, especially during asthma attacks.",
+        "latency": 1.325047254562378,
+        "faithfulness": 1.0,
+        "f1_score": 0.26229508196721313,
+        "retrieval_precision": 0.4
+      },
+      "hyde": {
+        "answer": "Common symptoms of asthma include wheezing, shortness of breath, coughing, and a feeling of \"tightness\" in the chest. Children may also experience itching on their back or neck at the start of an asthma attack.",
+        "hypothesis": "Asthma is characterized by recurrent respiratory symptoms, primarily including wheezing, shortness of breath, chest tightness, and coughing, particularly at night or in the early morning. These symptoms result from airway inflammation and hyperreactivity, leading to bronchoconstriction and airflow obstruction. The severity and frequency of these manifestations can vary widely among individuals and may be triggered by allergens, respiratory infections, exercise, or environmental factors.",
+        "latency": 3.6847212314605713,
+        "hypothesis_time": 2.0458192825317383,
+        "faithfulness": 1.0,
+        "f1_score": 0.888888888888889,
+        "retrieval_precision": 0.4
+      }
+    },
+    {
+      "id": "q03",
+      "question": "What is anemia?",
+      "baseline": {
+        "answer": "Anemia is a condition characterized by abnormally low levels of healthy red blood cells or hemoglobin. It develops when heavy bleeding causes significant iron loss or when production of red blood cells slows down or their destruction increases.",
+        "latency": 1.2384908199310303,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Anemia is a condition characterized by abnormally low levels of healthy red blood cells or hemoglobin, which delivers oxygen to tissues throughout the body.",
+        "hypothesis": "Anemia is a hematological disorder characterized by a decrease in the total number of red blood cells (RBCs) or a deficiency in hemoglobin concentration, resulting in diminished oxygen-carrying capacity of the blood. This condition can arise from various etiologies, including iron deficiency, vitamin B12 deficiency, chronic disease, and bone marrow pathologies. Clinical manifestations often include fatigue, pallor, and dyspnea, necessitating a comprehensive evaluation to determine the underlying cause and appropriate management.",
+        "latency": 3.2759690284729004,
+        "hypothesis_time": 2.018670082092285,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q04",
+      "question": "What is appendicitis?",
+      "baseline": {
+        "answer": "Appendicitis is an inflammation of the appendix, which is the worm-shaped pouch attached to the cecum, the beginning of the large intestine. It is a medical emergency that can lead to peritonitis if left untreated.",
+        "latency": 1.865966796875,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Appendicitis is an inflammation of the appendix, which is the worm-shaped pouch attached to the cecum, the beginning of the large intestine. It is a medical emergency, and if left untreated, it can lead to a life-threatening ruptured appendix.",
+        "hypothesis": "Appendicitis is an inflammation of the vermiform appendix, typically resulting from obstruction of the appendiceal lumen, often due to fecaliths, lymphoid hyperplasia, or neoplasms. Clinically, it presents with abdominal pain, initially localized around the periumbilical region, which subsequently migrates to the right lower quadrant, accompanied by gastrointestinal symptoms such as nausea, vomiting, and anorexia. Diagnosis is primarily clinical, supported by imaging studies such as ultrasound or computed tomography, and treatment generally involves surgical appendectomy.",
+        "latency": 3.7414357662200928,
+        "hypothesis_time": 2.1351561546325684,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q05",
+      "question": "What causes Alzheimer's disease?",
+      "baseline": {
+        "answer": "The cause or causes of Alzheimer\u2019s disease are unknown. Some strong leads have been found through recent research, but none of the factors studied have been shown to cause Alzheimer\u2019s disease or increase its likelihood.",
+        "latency": 1.3299410343170166,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "The cause or causes of Alzheimer's disease are unknown. Some strong leads have been found through recent research, but it is not clear exactly how structures like neurofibrillary tangles and amyloid plaques cause problems.",
+        "hypothesis": "Alzheimer's disease is characterized by the progressive degeneration of neurons in the brain, primarily due to the accumulation of amyloid-beta plaques and neurofibrillary tangles composed of hyperphosphorylated tau protein. Genetic factors, such as mutations in the APP, PSEN1, and PSEN2 genes, along with environmental influences and lifestyle factors, contribute to the pathophysiology of the disease. Additionally, neuroinflammation and vascular dysfunction play significant roles in the onset and progression of Alzheimer's disease.",
+        "latency": 3.4847819805145264,
+        "hypothesis_time": 1.9466900825500488,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q06",
+      "question": "What is diabetes mellitus?",
+      "baseline": {
+        "answer": "Diabetes mellitus is a disorder of carbohydrate metabolism brought on by a combination of hereditary and environmental factors. It occurs when a person does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar, a condition called hyperglycemia.",
+        "latency": 1.5797078609466553,
+        "faithfulness": 1.0,
+        "f1_score": 0.6575342465753424,
+        "retrieval_precision": 0.4
+      },
+      "hyde": {
+        "answer": "Diabetes mellitus is a disorder of carbohydrate metabolism brought on by a combination of hereditary and environmental factors. It occurs when a person does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar, a condition called hyperglycemia.",
+        "hypothesis": "Diabetes mellitus is a chronic metabolic disorder characterized by hyperglycemia, resulting from defects in insulin secretion, insulin action, or both. The condition is classified primarily into two types: Type 1 diabetes, which is an autoimmune destruction of pancreatic beta cells leading to absolute insulin deficiency, and Type 2 diabetes, which is characterized by insulin resistance and relative insulin deficiency. Long-term complications may include cardiovascular disease, nephropathy, neuropathy, and retinopathy, necessitating comprehensive management strategies to optimize glycemic control and reduce morbidity.",
+        "latency": 3.436262369155884,
+        "hypothesis_time": 2.252784013748169,
+        "faithfulness": 1.0,
+        "f1_score": 0.6575342465753424,
+        "retrieval_precision": 0.2
+      }
+    },
+    {
+      "id": "q07",
+      "question": "What is hypertension?",
+      "baseline": {
+        "answer": "Hypertension is persistently high arterial blood pressure. It puts a strain on the heart and arteries, potentially leading to serious health issues.",
+        "latency": 0.964637041091919,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Hypertension is high blood pressure that puts a strain on the heart and arteries. Over time, it can damage blood vessels and increase the risk of heart attacks, heart failure, stroke, or kidney failure.",
+        "hypothesis": "Hypertension, commonly referred to as high blood pressure, is a chronic medical condition characterized by the persistent elevation of systemic arterial blood pressure, typically defined as a systolic blood pressure of 130 mmHg or higher and/or a diastolic blood pressure of 80 mmHg or higher. This condition is a significant risk factor for the development of cardiovascular diseases, including coronary artery disease, heart failure, and stroke, and requires ongoing management to mitigate long-term health complications. Effective treatment strategies may include lifestyle modifications and pharmacological interventions aimed at achieving and maintaining target blood pressure levels.",
+        "latency": 3.439142942428589,
+        "hypothesis_time": 2.004939079284668,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q08",
+      "question": "What are common risk factors for breast cancer?",
+      "baseline": {
+        "answer": "Common risk factors for breast cancer include family history of breast cancer in a mother or sister, early onset of menstruation and late menopause, reproductive history (having no children or having children after age 30), and history of abnormal breast biopsies. Additionally, high-fat diets, obesity, alcohol use, and hormone replacement therapy (HRT) may contribute to the risk profile.",
+        "latency": 1.8966798782348633,
+        "faithfulness": 1.0,
+        "f1_score": 0.76,
+        "retrieval_precision": 0.2
+      },
+      "hyde": {
+        "answer": "Common risk factors for breast cancer include family history of breast cancer in a mother or sister, early onset of menstruation and late menopause, reproductive history (having no children or having children after age 30), and history of abnormal breast biopsies. Additionally, high-fat diets, obesity, alcohol use, and hormone replacement therapy (HRT) may contribute to the risk profile.",
+        "hypothesis": "Common risk factors for breast cancer include advancing age, female sex, a family history of breast or ovarian cancer, and the presence of genetic mutations such as BRCA1 and BRCA2. Additional factors include prolonged exposure to estrogen, which may result from early menarche, late menopause, nulliparity, or hormone replacement therapy. Lifestyle factors such as obesity, physical inactivity, and alcohol consumption also contribute to an increased risk of developing breast cancer.",
+        "latency": 4.0968639850616455,
+        "hypothesis_time": 2.050328016281128,
+        "faithfulness": 1.0,
+        "f1_score": 0.76,
+        "retrieval_precision": 0.2
+      }
+    },
+    {
+      "id": "q09",
+      "question": "What is Parkinson disease?",
+      "baseline": {
+        "answer": "Parkinson's disease is a neurological disorder caused by a deficiency of dopamine, a neurotransmitter. It is characterized by symptoms such as tremor, rigidity, slow movement, and poor balance and coordination.",
+        "latency": 1.5359070301055908,
+        "faithfulness": 1.0,
+        "f1_score": 0.5555555555555556,
+        "retrieval_precision": 0.4
+      },
+      "hyde": {
+        "answer": "Parkinson's disease is a common form of parkinsonism characterized by a lack of the neurotransmitter dopamine in the brain. It presents typical symptoms such as tremor, rigidity, slow movement, and poor balance and coordination.",
+        "hypothesis": "Parkinson's disease is a progressive neurodegenerative disorder characterized by the degeneration of dopaminergic neurons in the substantia nigra, leading to a deficiency of dopamine in the basal ganglia. Clinically, it manifests with cardinal symptoms including bradykinesia, resting tremor, muscle rigidity, and postural instability. Additionally, non-motor symptoms such as cognitive impairment and autonomic dysfunction may also occur, significantly impacting the quality of life of affected individuals.",
+        "latency": 4.6931471824646,
+        "hypothesis_time": 1.9455490112304688,
+        "faithfulness": 1.0,
+        "f1_score": 0.6842105263157895,
+        "retrieval_precision": 0.4
+      }
+    },
+    {
+      "id": "q10",
+      "question": "What is osteoarthritis?",
+      "baseline": {
+        "answer": "Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual wear and tear of the joints.",
+        "latency": 0.9989099502563477,
+        "faithfulness": 1.0,
+        "f1_score": 0.8444444444444444,
+        "retrieval_precision": 0.4
+      },
+      "hyde": {
+        "answer": "Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual wear and tear of the joints.",
+        "hypothesis": "Osteoarthritis (OA) is a degenerative joint disease characterized by the progressive breakdown of articular cartilage, leading to joint pain, stiffness, and functional impairment. It is commonly associated with aging, obesity, and previous joint injuries, and is marked by the presence of osteophytes and synovial inflammation. The condition primarily affects weight-bearing joints such as the knees, hips, and spine, significantly impacting the quality of life in affected individuals.",
+        "latency": 6.2124528884887695,
+        "hypothesis_time": 5.059031009674072,
+        "faithfulness": 1.0,
+        "f1_score": 0.8444444444444444,
+        "retrieval_precision": 0.4
+      }
+    },
+    {
+      "id": "q11",
+      "question": "What is pneumonia?",
+      "baseline": {
+        "answer": "Pneumonia is a severe infection that may result from the area of the lung served by an affected bronchial tube becoming severely infected. It can occur when there is a constant, low-level infection, such as in bronchiectasis.",
+        "latency": 1.6405870914459229,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Pneumonia is a condition that can develop during or after bronchitis, whether it\u2019s due to bacteria, tuberculosis, fungi, parasites, or other germs. It can lead to the formation of lung abscesses as a complication.",
+        "hypothesis": "Pneumonia is an inflammatory condition of the lung parenchyma, primarily caused by infectious agents such as bacteria, viruses, or fungi, leading to the consolidation of alveolar spaces. Clinically, it is characterized by symptoms including cough, fever, dyspnea, and pleuritic chest pain, and may be diagnosed through imaging studies such as chest radiography or computed tomography, as well as microbiological analysis of respiratory secretions. Prompt recognition and appropriate antimicrobial therapy are essential to reduce morbidity and prevent complications associated with this respiratory illness.",
+        "latency": 3.8297221660614014,
+        "hypothesis_time": 2.3147802352905273,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q12",
+      "question": "What is bipolar disorder?",
+      "baseline": {
+        "answer": "Bipolar disorder is a chronic recurrent illness characterized by manic episodes, which include feelings of self-importance, elation, and irritability. It often requires lifelong observation and treatment after diagnosis.",
+        "latency": 1.172544002532959,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Bipolar disorder is characterized by manic episodes, which include feelings of self-importance, elation, and decreased need for sleep, followed by depressive episodes with low energy and feelings of despair. It is a chronic recurrent illness that requires lifelong observation and treatment after diagnosis.",
+        "hypothesis": "Bipolar disorder, also known as manic-depressive illness, is a chronic mood disorder characterized by significant fluctuations in mood, energy, and activity levels. These episodes can range from manic or hypomanic states, marked by elevated mood, increased activity, and impulsivity, to depressive episodes, characterized by persistent sadness, loss of interest, and cognitive impairment. The disorder often requires a comprehensive treatment approach, including pharmacotherapy, psychotherapy, and lifestyle modifications to manage symptoms and improve overall functioning.",
+        "latency": 3.689540147781372,
+        "hypothesis_time": 1.9445888996124268,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q13",
+      "question": "What is a cataract?",
+      "baseline": {
+        "answer": "A cataract is the clouding of the lens of the eye, leading to poor vision or blindness.",
+        "latency": 0.9330108165740967,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "A cataract is the clouding of the lens of the eye, which causes the image to be blurrier than the other eye.",
+        "hypothesis": "A cataract is an opacification of the crystalline lens of the eye, which leads to a gradual decrease in visual acuity. This condition can result from various etiologies, including age-related changes, genetic predisposition, prolonged exposure to ultraviolet light, and certain systemic diseases. The clinical presentation typically includes blurred vision, glare, and, in advanced cases, a significant impairment of daily activities, necessitating surgical intervention for definitive management.",
+        "latency": 4.807974100112915,
+        "hypothesis_time": 2.885996103286743,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q14",
+      "question": "What are symptoms of dehydration?",
+      "baseline": {
+        "answer": "Symptoms of dehydration include decreased urination, dizziness or lightheadedness, dry mouth, increased thirst, and wrinkled skin.",
+        "latency": 1.0224111080169678,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Symptoms of dehydration include decreased urination, dizziness or lightheadedness, dry mouth, increased thirst, and wrinkled skin.",
+        "hypothesis": "Dehydration is a condition characterized by a deficit of total body water, which can manifest through a variety of clinical symptoms. Common manifestations include increased thirst, dry mucous membranes, decreased urine output with darker urine coloration, fatigue, dizziness, and in severe cases, confusion or altered mental status. Additional signs may include tachycardia, hypotension, and reduced skin turgor, indicating more significant fluid loss.",
+        "latency": 3.173862934112549,
+        "hypothesis_time": 1.7507569789886475,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q15",
+      "question": "What is eczema?",
+      "baseline": {
+        "answer": "Eczema is a general term used to describe a variety of conditions that cause an itchy, inflamed skin rash. Atopic dermatitis, a form of eczema, is characterized by chronically inflamed skin and sometimes intolerable itching.",
+        "latency": 1.6016860008239746,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Eczema is a general term used to describe a variety of conditions that cause an itchy, inflamed skin rash. Atopic dermatitis, a form of eczema, is characterized by chronically inflamed skin and sometimes intolerable itching.",
+        "hypothesis": "Eczema, also known as atopic dermatitis, is a chronic inflammatory skin condition characterized by pruritic, erythematous, and desquamating lesions. It commonly presents in infancy and childhood but can persist or recur in adulthood. The pathophysiology involves a complex interplay of genetic predisposition, skin barrier dysfunction, and immune dysregulation, leading to increased susceptibility to environmental allergens and irritants.",
+        "latency": 3.2858333587646484,
+        "hypothesis_time": 1.757965087890625,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q16",
+      "question": "What is fibromyalgia?",
+      "baseline": {
+        "answer": "I don't know.",
+        "latency": 0.7131171226501465,
+        "faithfulness": 0.0
+      },
+      "hyde": {
+        "answer": "I don't know.",
+        "hypothesis": "Fibromyalgia is a chronic pain syndrome characterized by widespread musculoskeletal pain, fatigue, sleep disturbances, and cognitive difficulties, often referred to as \"fibro fog.\" The condition is believed to involve dysregulation of pain processing in the central nervous system, potentially linked to neurochemical imbalances and genetic predispositions. Diagnosis is primarily clinical, based on the presence of tender points and the exclusion of other conditions, as there are no definitive laboratory tests for fibromyalgia.",
+        "latency": 3.04409122467041,
+        "hypothesis_time": 2.051909923553467,
+        "faithfulness": 0.0
+      }
+    },
+    {
+      "id": "q17",
+      "question": "What is gout?",
+      "baseline": {
+        "answer": "Gout is a hereditary metabolic disease that is a form of arthritis and causes inflammation of the joints. It is more common in men and is defined by attacks of painful, reddened joints, often affecting the big toe.",
+        "latency": 1.2675750255584717,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Gout is a hereditary metabolic disease that is a form of arthritis and causes inflammation of the joints. It is defined by attacks of painful, reddened joints, often affecting the big toe.",
+        "hypothesis": "Gout is a form of inflammatory arthritis characterized by the deposition of monosodium urate crystals in joints and soft tissues due to hyperuricemia, a condition marked by elevated levels of uric acid in the blood. Clinically, gout presents with acute episodes of intense pain, swelling, and erythema, commonly affecting the first metatarsophalangeal joint. Chronic gout can lead to the formation of tophi and joint damage if left untreated.",
+        "latency": 2.9636011123657227,
+        "hypothesis_time": 1.7065987586975098,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q18",
+      "question": "What is hepatitis?",
+      "baseline": {
+        "answer": "Hepatitis is inflammation of the liver, caused by infectious or toxic agents and characterized by jaundice, fever, liver enlargement, and abdominal pain.",
+        "latency": 0.9298768043518066,
+        "faithfulness": 1.0
+      },
+      "hyde": {
+        "answer": "Hepatitis is inflammation of the liver, caused by infectious or toxic agents and characterized by jaundice, fever, liver enlargement, and abdominal pain.",
+        "hypothesis": "Hepatitis is an inflammatory condition of the liver, often caused by viral infections, autoimmune diseases, or exposure to toxins. The most common viral etiologies include hepatitis A, B, C, D, and E, each with distinct transmission routes and clinical manifestations. Chronic hepatitis can lead to significant complications such as cirrhosis, hepatic failure, and hepatocellular carcinoma if not adequately managed.",
+        "latency": 2.816486120223999,
+        "hypothesis_time": 1.685330867767334,
+        "faithfulness": 1.0
+      }
+    },
+    {
+      "id": "q19",
+      "question": "What is influenza?",
+      "baseline": {
+        "answer": "Influenza (flu) is caused by viruses that can lead to influenza-like syndromes. It may also be preceded by a number of bacteria.",
+        "latency": 1.3611259460449219,
+        "faithfulness": 0.5
+      },
+      "hyde": {
+        "answer": "I don't know.",
+        "hypothesis": "Influenza, commonly known as the flu, is an acute viral respiratory infection caused by influenza viruses, primarily subtypes A and B. It is characterized by sudden onset of fever, chills, myalgia, cough, sore throat, and fatigue, often leading to significant morbidity and, in severe cases, mortality, particularly in high-risk populations such as the elderly and those with underlying health conditions. The transmission occurs via respiratory droplets, and preventive measures include vaccination and antiviral medications.",
+        "latency": 2.7329020500183105,
+        "hypothesis_time": 2.0712621212005615,
+        "faithfulness": 0.0
+      }
+    },
+    {
+      "id": "q20",
+      "question": "What is a kidney stone?",
+      "baseline": {
+        "answer": "I don't know.",
+        "latency": 0.5618538856506348,
+        "faithfulness": 0.0
+      },
+      "hyde": {
+        "answer": "I don't know.",
+        "hypothesis": "A kidney stone, or nephrolith, is a solid aggregation of mineral and organic substances that forms within the renal pelvis or nephron of the kidney. These calculi can vary in size and composition, commonly consisting of calcium oxalate, calcium phosphate, uric acid, or struvite. The formation of kidney stones is often associated with factors such as dehydration, dietary habits, and metabolic disorders, leading to symptoms such as hematuria, flank pain, and urinary obstruction.",
+        "latency": 3.12821888923645,
+        "hypothesis_time": 1.9971179962158203,
+        "faithfulness": 0.0
+      }
+    }
+  ],
+  "aggregate": {
+    "baseline": {
+      "avg_faithfulness": 0.875,
+      "avg_f1_score": 0.6159658657085111,
+      "avg_retrieval_precision": 0.36,
+      "avg_latency": 1.3492388725280762
+    },
+    "hyde": {
+      "avg_faithfulness": 0.85,
+      "avg_f1_score": 0.7670156212448931,
+      "avg_retrieval_precision": 0.32,
+      "avg_latency": 3.7453739285469054
+    },
+    "improvement": {
+      "faithfulness": -2.85714285714286,
+      "f1_score": 24.522423066842823,
+      "retrieval_precision": -11.111111111111107,
+      "latency_overhead": 2.3961350560188293
+    }
+  }
+}

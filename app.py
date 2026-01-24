@@ -10,6 +10,8 @@ from src.prompt import system_prompt
 from werkzeug.utils import secure_filename
 from src.document_manager import add_document, delete_document, get_all_documents, update_document_status, get_document
 import os
+from src.hyde import HyDERetriever
+import time
 
 app = Flask(__name__)
 load_dotenv()
@@ -36,6 +38,9 @@ docsearch = PineconeVectorStore.from_existing_index(embedding=embeddings, index_
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, max_completion_tokens=800)
 prompt = ChatPromptTemplate.from_messages([("system", system_prompt), ("human", "{input}")])
 question_answer_chain = create_stuff_documents_chain(llm, prompt)
+hyde_retriever = HyDERetriever()
+
+
 
 @app.route("/")
 def index():
@@ -299,6 +304,63 @@ def delete_doc(doc_id):
         import traceback
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
+    
+
+@app.route("/get_hyde", methods=["POST"])
+def chat_hyde():
+    """Chat endpoint using HyDE for improved retrieval"""
+    msg = request.form.get("msg", "").strip()
+    if not msg:
+        return jsonify({"answer": "", "sources": [], "hypothesis": "", "method": "hyde"})
+
+    # Get document filter
+    doc_ids = request.form.get("doc_ids", "").strip()
+    filter_dict = None
+    if doc_ids:
+        doc_id_list = [d.strip() for d in doc_ids.split(",") if d.strip()]
+        if doc_id_list:
+            filter_dict = {"doc_id": {"$in": doc_id_list}}
+    
+    # HyDE retrieval
+    start_time = time.time()
+    retrieved_docs, hypothesis, gen_time = hyde_retriever.retrieve_with_hyde(
+        docsearch, 
+        msg, 
+        k=5,
+        filter_dict=filter_dict
+    )
+    
+    # Build context from retrieved docs
+    context_text = "\n\n".join([doc.page_content for doc in retrieved_docs])
+    
+    # Generate final answer using RAG chain
+    final_prompt = f"""{system_prompt}
+
+Context:
+{context_text}
+
+Question: {msg}
+
+Answer:"""
+    
+    answer_response = llm.invoke(final_prompt)
+    answer = answer_response.content
+    
+    sources = build_sources(retrieved_docs)
+    total_time = time.time() - start_time
+    
+    return jsonify({
+        "answer": answer,
+        "sources": sources,
+        "hypothesis": hypothesis,
+        "method": "hyde",
+        "timing": {
+            "hypothesis_generation": round(gen_time, 2),
+            "total_time": round(total_time, 2)
+        }
+    })
+    
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=8080, debug=True)

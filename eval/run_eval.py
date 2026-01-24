@@ -17,6 +17,10 @@ Usage:
   python eval/run_eval.py --questions eval/questions.jsonl --mode rag
   python eval/run_eval.py --questions eval/questions.jsonl --mode retrieval
 
+Advanced (rerank):
+  python eval/run_eval.py --mode rag --rerank --k 5 --candidate_k 20
+  python eval/run_eval.py --mode retrieval --rerank --k 5 --candidate_k 20
+
 Notes:
 - mode=rag calls the LLM (costs tokens).
 - mode=retrieval only tests Pinecone retrieval (no LLM call).
@@ -37,7 +41,6 @@ from typing import Any, Dict, List, Optional, Tuple
 from dotenv import load_dotenv
 
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_classic.chains import create_retrieval_chain
 from langchain_classic.chains.combine_documents.stuff import create_stuff_documents_chain
 from langchain_openai import ChatOpenAI
 from langchain_pinecone import PineconeVectorStore
@@ -291,6 +294,63 @@ def calculate_retrieval_precision(context_docs: List[Any], expected_pages: List[
     }
 
 
+# -----------------------------
+# Advanced RAG: Reranker wrapper
+# -----------------------------
+class RerankRetriever:
+    """
+    Wrap a base retriever:
+      - retrieve candidate_k docs
+      - rerank with a cross-encoder
+      - return top_n docs
+    Compatible with LangChain chains (invoke + get_relevant_documents).
+    """
+
+    def __init__(self, base_retriever: Any, cross_encoder: Any, top_n: int, max_chars: int = 2000):
+        self.base = base_retriever
+        self.ce = cross_encoder
+        self.top_n = top_n
+        self.max_chars = max_chars
+
+     # LangChain Runnable compatibility (create_retrieval_chain expects this)
+    def with_config(self, *args, **kwargs):
+        new_base = self.base
+        if hasattr(self.base, "with_config"):
+            try:
+                new_base = self.base.with_config(*args, **kwargs)
+            except Exception:
+                # If signature mismatch, just keep base as-is
+                new_base = self.base
+
+        return RerankRetriever(
+            base_retriever=new_base,
+            cross_encoder=self.ce,
+            top_n=self.top_n,
+            max_chars=self.max_chars,
+        )
+
+    # Optional: forward unknown attributes to the wrapped retriever (prevents more missing-method errors)
+    def __getattr__(self, name: str):
+        return getattr(self.base, name)
+
+
+    def invoke(self, query: str, config: Optional[dict] = None):
+        docs = self.base.invoke(query)
+        if not docs:
+            return docs
+
+        pairs = [(query, (getattr(d, "page_content", "") or "")[: self.max_chars]) for d in docs]
+        scores = self.ce.predict(pairs)
+
+        ranked = sorted(zip(scores, docs), key=lambda x: x[0], reverse=True)
+        return [d for _, d in ranked[: self.top_n]]
+
+    # Some LC versions/chains call this
+    def get_relevant_documents(self, query: str):
+        return self.invoke(query)
+
+
+
 def build_shared_components(index_name: str):
     """Build components once; we will create a filtered retriever per test case."""
     load_dotenv()
@@ -326,16 +386,45 @@ def build_shared_components(index_name: str):
     return docsearch, doc_chain
 
 
-def make_retriever(docsearch: PineconeVectorStore, k: int, scope: Optional[Dict[str, Any]]):
-    """Create a retriever. If scope exists, apply it as a Pinecone metadata filter."""
-    kwargs: Dict[str, Any] = {"k": k}
+def make_retriever(
+    docsearch: PineconeVectorStore,
+    k: int,
+    scope: Optional[Dict[str, Any]],
+    rerank: bool = False,
+    candidate_k: int = 20,
+    rerank_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
+):
+    """Create a retriever. If scope exists, apply it as a Pinecone metadata filter.
+    If rerank=True: retrieve candidate_k docs then rerank down to k."""
+    search_k = candidate_k if rerank else k
+
+    kwargs: Dict[str, Any] = {"k": search_k}
     if scope:
         kwargs["filter"] = dict(scope)
 
-    return docsearch.as_retriever(search_type="similarity", search_kwargs=kwargs)
+    base = docsearch.as_retriever(search_type="similarity", search_kwargs=kwargs)
+
+    if not rerank:
+        return base
+
+    from sentence_transformers import CrossEncoder  # will raise if not installed
+
+    ce = CrossEncoder(rerank_model)
+    return RerankRetriever(base_retriever=base, cross_encoder=ce, top_n=k)
 
 
-def run_eval(index_name: str, questions_path: str, mode: str, k: int, out_dir: str) -> str:
+
+def run_eval(
+    index_name: str,
+    questions_path: str,
+    mode: str,
+    k: int,
+    out_dir: str,
+    rerank: bool,
+    candidate_k: int,
+    rerank_model: str,
+) -> str:
+
     cases = parse_questions_jsonl(questions_path)
     docsearch, doc_chain = build_shared_components(index_name=index_name)
 
@@ -346,17 +435,31 @@ def run_eval(index_name: str, questions_path: str, mode: str, k: int, out_dir: s
     results: List[Dict[str, Any]] = []
 
     for case in cases:
-        retriever = make_retriever(docsearch, k=k, scope=case.scope)
+        retriever = make_retriever(
+         docsearch,
+         k=k,
+         scope=case.scope,
+            rerank=rerank,
+            candidate_k=candidate_k,
+            rerank_model=rerank_model,
+)
+
 
         t0 = time.time()
         context_docs = retriever.invoke(case.question)
 
         answer = ""
         if mode == "rag":
-            rag_chain = create_retrieval_chain(retriever, doc_chain)
-            resp = rag_chain.invoke({"input": case.question})
-            answer = resp.get("answer", "")
-            context_docs = resp.get("context", context_docs)
+            # We already retrieved (and reranked) docs above
+            # Now directly run the doc chain using the retrieved docs as context
+            resp = doc_chain.invoke({"input": case.question, "context": context_docs})
+
+            # doc_chain sometimes returns a string, sometimes a dict depending on versions
+            if isinstance(resp, dict):
+                answer = resp.get("answer") or resp.get("output_text") or resp.get("text") or ""
+            else:
+                answer = str(resp)
+
 
         dt_ms = int((time.time() - t0) * 1000)
 
@@ -543,10 +646,31 @@ def main():
     parser.add_argument("--mode", choices=["rag", "retrieval"], default="rag")
     parser.add_argument("--k", type=int, default=3)
     parser.add_argument("--out", default="eval_results")
+    # Advanced RAG knobs
+    parser.add_argument("--rerank", action="store_true", help="Enable cross-encoder reranking")
+    parser.add_argument("--candidate_k", type=int, default=20, help="Docs to fetch BEFORE reranking (must be >= k)")
+    parser.add_argument(
+        "--rerank_model",
+        default="cross-encoder/ms-marco-MiniLM-L-6-v2",
+        help="SentenceTransformers CrossEncoder model name",
+    )
+
 
     args = parser.parse_args()
+    if args.rerank and args.candidate_k < args.k:
+        raise ValueError("--candidate_k must be >= --k when --rerank is enabled")
 
-    run_eval(index_name=args.index, questions_path=args.questions, mode=args.mode, k=args.k, out_dir=args.out)
+
+    run_eval(
+        index_name=args.index,
+        questions_path=args.questions,
+        mode=args.mode,
+        k=args.k,
+        out_dir=args.out,
+        rerank=args.rerank,
+        candidate_k=args.candidate_k,
+        rerank_model=args.rerank_model,
+    )
 
 
 if __name__ == "__main__":

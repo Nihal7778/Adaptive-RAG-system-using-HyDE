@@ -6,13 +6,5 @@
     "status": "indexed",
     "num_chunks": 5860,
     "is_protected": true
-  },
-  "90f77dc5": {
-    "doc_id": "90f77dc5",
-    "filename": "Enterprise_Doc.pdf",
-    "upload_date": "2026-01-20T19:26:13.257375",
-    "status": "indexed",
-    "num_chunks": 968,
-    "is_protected": false
   }
 }

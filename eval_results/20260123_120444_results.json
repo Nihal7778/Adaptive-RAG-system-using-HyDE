@@ -6,14 +6,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Acne is a common skin disease characterized by pimples on the face, chest, and back. It occurs when the pores of the skin become clogged with oil, dead skin cells, and bacteria. The medical term for common acne is acne vulgaris.",
-    "latency_ms": 3128,
+    "answer": "Acne is a common skin disease characterized by pimples on the face, chest, and back. It occurs when the pores of the skin become clogged with oil, dead skin cells, and bacteria.",
+    "latency_ms": 3114,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c395",
-      "Medical_book.pdf • p.39.0 • Medical_book.pdf_p39_c417",
-      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c399"
+      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c274",
+      "Medical_book.pdf • p.242.0 • Medical_book.pdf_p242_c2203",
+      "Medical_book.pdf • p.39.0 • Medical_book.pdf_p39_c289",
+      "Medical_book.pdf • p.240.0 • Medical_book.pdf_p240_c2181",
+      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c280"
     ],
     "must_include": [
       "acne"
@@ -35,14 +37,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Common symptoms of asthma include wheezing, shortness of breath, coughing, and a feeling of \"tightness\" in the chest. Children may also experience itching on their back or neck at the start of an asthma attack.",
-    "latency_ms": 1771,
+    "answer": "Common symptoms of asthma include wheezing, shortness of breath, coughing, and a feeling of \"tightness\" in the chest. Additionally, patients may experience nasal polyps or increased amounts of nasal secretions.",
+    "latency_ms": 2400,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.395.0 • Medical_book.pdf_p395_c5349",
-      "Medical_book.pdf • p.394.0 • Medical_book.pdf_p394_c5338",
-      "Medical_book.pdf • p.395.0 • Medical_book.pdf_p395_c5343"
+      "Medical_book.pdf • p.394.0 • Medical_book.pdf_p394_c3621",
+      "Medical_book.pdf • p.394.0 • Medical_book.pdf_p394_c3622",
+      "Medical_book.pdf • p.395.0 • Medical_book.pdf_p395_c3629",
+      "Medical_book.pdf • p.394.0 • Medical_book.pdf_p394_c3618",
+      "Medical_book.pdf • p.395.0 • Medical_book.pdf_p395_c3625"
     ],
     "must_include": [
       "asthma"
@@ -53,7 +57,7 @@
     "context_keyword_missing": [],
     "refusal_ok": true,
     "faithfulness": 1.0,
-    "f1_score": 0.888888888888889,
+    "f1_score": 0.6206896551724138,
     "retrieval_precision": 0.4,
     "found_correct_page": true
   },
@@ -64,14 +68,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Anemia is a condition characterized by abnormally low levels of healthy red blood cells or hemoglobin, which is the component of red blood cells that delivers oxygen to tissues throughout the body.",
-    "latency_ms": 2073,
+    "answer": "Anemia is a condition characterized by abnormally low levels of healthy red blood cells or hemoglobin, which delivers oxygen to tissues throughout the body.",
+    "latency_ms": 1702,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c2559",
-      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c2558",
-      "Medical_book.pdf • p.566.0 • Medical_book.pdf_p566_c7652"
+      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c1741",
+      "Medical_book.pdf • p.461.0 • Medical_book.pdf_p461_c4225",
+      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c1742",
+      "Medical_book.pdf • p.194.0 • Medical_book.pdf_p194_c1745",
+      "Medical_book.pdf • p.230.0 • Medical_book.pdf_p230_c2081"
     ],
     "must_include": [
       "anemia"
@@ -94,13 +100,15 @@
     "scope": null,
     "should_refuse": false,
     "answer": "Appendicitis is an inflammation of the appendix, which is the worm-shaped pouch attached to the cecum, the beginning of the large intestine. It is a medical emergency, and if left untreated, the appendix may rupture and cause a potentially fatal infection.",
-    "latency_ms": 1557,
+    "latency_ms": 2428,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c4788",
-      "Medical_book.pdf • p.357.0 • Medical_book.pdf_p357_c4815",
-      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c4793"
+      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c3250",
+      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c3251",
+      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c3253",
+      "Medical_book.pdf • p.355.0 • Medical_book.pdf_p355_c3252",
+      "Medical_book.pdf • p.158.0 • Medical_book.pdf_p158_c1409"
     ],
     "must_include": [
       "appendicitis"
@@ -122,14 +130,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "The cause or causes of Alzheimer’s disease are unknown.",
-    "latency_ms": 954,
+    "answer": "The cause or causes of Alzheimer’s disease are unknown. There are several risk factors that increase a person’s likelihood of developing the disease, with age being the most significant.",
+    "latency_ms": 1389,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.148.0 • Medical_book.pdf_p148_c1915",
-      "Medical_book.pdf • p.150.0 • Medical_book.pdf_p150_c1952",
-      "Medical_book.pdf • p.148.0 • Medical_book.pdf_p148_c1921"
+      "Medical_book.pdf • p.148.0 • Medical_book.pdf_p148_c1307",
+      "Medical_book.pdf • p.150.0 • Medical_book.pdf_p150_c1323",
+      "Medical_book.pdf • p.150.0 • Medical_book.pdf_p150_c1327",
+      "Medical_book.pdf • p.148.0 • Medical_book.pdf_p148_c1302",
+      "Medical_book.pdf • p.154.0 • Medical_book.pdf_p154_c1369"
     ],
     "must_include": [
       "alzheimer"
@@ -151,14 +161,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Diabetes mellitus is a condition where a person either does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar, a condition called hyperglycemia.",
-    "latency_ms": 1686,
+    "answer": "Diabetes mellitus is a disorder of carbohydrate metabolism brought on by a combination of hereditary and environmental factors. It occurs when a person does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar, a condition called hyperglycemia.",
+    "latency_ms": 2501,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.544.0 • Medical_book.pdf_p544_c7369",
-      "Medical_book.pdf • p.542.0 • Medical_book.pdf_p542_c7339",
-      "Medical_book.pdf • p.543.0 • Medical_book.pdf_p543_c7342"
+      "Medical_book.pdf • p.199.0 • Medical_book.pdf_p199_c1784",
+      "Medical_book.pdf • p.416.0 • Medical_book.pdf_p416_c3821",
+      "Medical_book.pdf • p.543.0 • Medical_book.pdf_p543_c4986",
+      "Medical_book.pdf • p.438.0 • Medical_book.pdf_p438_c4021",
+      "Medical_book.pdf • p.173.0 • Medical_book.pdf_p173_c1548"
     ],
     "must_include": [
       "diabetes"
@@ -169,8 +181,8 @@
     "context_keyword_missing": [],
     "refusal_ok": true,
     "faithfulness": 1.0,
-    "f1_score": 0.8813559322033899,
-    "retrieval_precision": 0.6,
+    "f1_score": 0.6575342465753424,
+    "retrieval_precision": 0.2,
     "found_correct_page": true
   },
   {
@@ -180,14 +192,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Hypertension is high blood pressure. It usually has no symptoms, so it must be checked to be known.",
-    "latency_ms": 920,
+    "answer": "Hypertension is persistently high arterial blood pressure.",
+    "latency_ms": 857,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.219.0 • Medical_book.pdf_p219_c2913",
-      "Medical_book.pdf • p.411.0 • Medical_book.pdf_p411_c5568",
-      "Medical_book.pdf • p.143.0 • Medical_book.pdf_p143_c1839"
+      "Medical_book.pdf • p.144.0 • Medical_book.pdf_p144_c1266",
+      "Medical_book.pdf • p.143.0 • Medical_book.pdf_p143_c1251",
+      "Medical_book.pdf • p.458.0 • Medical_book.pdf_p458_c4198",
+      "Medical_book.pdf • p.411.0 • Medical_book.pdf_p411_c3775",
+      "Medical_book.pdf • p.411.0 • Medical_book.pdf_p411_c3778"
     ],
     "must_include": [
       "hypertension"
@@ -209,14 +223,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Common risk factors for breast cancer include family history of breast cancer in a mother or sister, early onset of menstruation and late menopause, and reproductive history such as having no children or having children after age 30. Women who have never breastfed also have an increased risk.",
-    "latency_ms": 2364,
+    "answer": "Common risk factors for breast cancer include family history of breast cancer in a mother or sister, early onset of menstruation and late menopause, reproductive history (having no children or having children after age 30, and never breastfeeding), and history of abnormal breast biopsies. Additionally, high-fat diets, obesity, alcohol use, and hormone replacement therapy (HRT) may also contribute to the risk profile.",
+    "latency_ms": 1697,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c8021",
-      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c8020",
-      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c8022"
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c5437",
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c5438",
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c5439",
+      "Medical_book.pdf • p.592.0 • Medical_book.pdf_p592_c5435",
+      "Medical_book.pdf • p.593.0 • Medical_book.pdf_p593_c5442"
     ],
     "must_include": [
       "breast cancer"
@@ -227,7 +243,7 @@
     "context_keyword_missing": [],
     "refusal_ok": true,
     "faithfulness": 1.0,
-    "f1_score": 0.7865168539325843,
+    "f1_score": 0.7307692307692307,
     "retrieval_precision": 0.2,
     "found_correct_page": true
   },
@@ -238,14 +254,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Parkinson’s disease is the most common form of parkinsonism, characterized by symptoms such as tremor, rigidity, slowness of movement (bradykinesia), and poor balance and coordination. It is seen more frequently with advancing age. The immediate cause is the lack of the neurotransmitter dopamine in the brain.",
-    "latency_ms": 1442,
+    "answer": "Parkinson’s disease is a neurological disorder caused by deficiency of dopamine, a neurotransmitter, that assists in transmitting signals in the brain. It is characterized by symptoms such as tremor, rigidity, slow movement, and poor balance and coordination.",
+    "latency_ms": 2447,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.309.0 • Medical_book.pdf_p309_c4149",
-      "Medical_book.pdf • p.311.0 • Medical_book.pdf_p311_c4176",
-      "Medical_book.pdf • p.309.0 • Medical_book.pdf_p309_c4150"
+      "Medical_book.pdf • p.309.0 • Medical_book.pdf_p309_c2821",
+      "Medical_book.pdf • p.165.0 • Medical_book.pdf_p165_c1482",
+      "Medical_book.pdf • p.330.0 • Medical_book.pdf_p330_c3017",
+      "Medical_book.pdf • p.309.0 • Medical_book.pdf_p309_c2820",
+      "Medical_book.pdf • p.311.0 • Medical_book.pdf_p311_c2839"
     ],
     "must_include": [
       "parkinson"
@@ -256,7 +274,7 @@
     "context_keyword_missing": [],
     "refusal_ok": true,
     "faithfulness": 1.0,
-    "f1_score": 0.8636363636363636,
+    "f1_score": 0.5822784810126583,
     "retrieval_precision": 0.4,
     "found_correct_page": true
   },
@@ -267,14 +285,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual degeneration of the cartilage of the joints.",
-    "latency_ms": 1005,
+    "answer": "Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual wear and tear of cartilage.",
+    "latency_ms": 1195,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.635.0 • Medical_book.pdf_p635_c8625",
-      "Medical_book.pdf • p.320.0 • Medical_book.pdf_p320_c4299",
-      "Medical_book.pdf • p.572.0 • Medical_book.pdf_p572_c7742"
+      "Medical_book.pdf • p.189.0 • Medical_book.pdf_p189_c1701",
+      "Medical_book.pdf • p.375.0 • Medical_book.pdf_p375_c3448",
+      "Medical_book.pdf • p.320.0 • Medical_book.pdf_p320_c2922",
+      "Medical_book.pdf • p.572.0 • Medical_book.pdf_p572_c5254",
+      "Medical_book.pdf • p.553.0 • Medical_book.pdf_p553_c5082"
     ],
     "must_include": [
       "osteoarthritis"
@@ -285,8 +305,8 @@
     "context_keyword_missing": [],
     "refusal_ok": true,
     "faithfulness": 1.0,
-    "f1_score": 1.0,
-    "retrieval_precision": 0.6,
+    "f1_score": 0.8181818181818182,
+    "retrieval_precision": 0.4,
     "found_correct_page": true
   },
   {
@@ -296,26 +316,26 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "I don't know.",
-    "latency_ms": 691,
+    "answer": "Pneumonia is an infection that can develop as a complication during or after other infections, such as bacteria, tuberculosis, fungi, parasites, or other germs. It is characterized by inflammation of the lungs.",
+    "latency_ms": 1938,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.611.0 • Medical_book.pdf_p611_c8294",
-      "Medical_book.pdf • p.281.0 • Medical_book.pdf_p281_c3758",
-      "Medical_book.pdf • p.614.0 • Medical_book.pdf_p614_c8337"
+      "Medical_book.pdf • p.71.0 • Medical_book.pdf_p71_c584",
+      "Medical_book.pdf • p.93.0 • Medical_book.pdf_p93_c777",
+      "Medical_book.pdf • p.610.0 • Medical_book.pdf_p610_c5613",
+      "Medical_book.pdf • p.28.0 • Medical_book.pdf_p28_c182",
+      "Medical_book.pdf • p.612.0 • Medical_book.pdf_p612_c5624"
     ],
     "must_include": [
       "pneumonia"
     ],
-    "answer_keyword_hits": 0,
-    "answer_keyword_missing": [
-      "pneumonia"
-    ],
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
     "context_keyword_hits": 1,
     "context_keyword_missing": [],
-    "refusal_ok": false,
-    "faithfulness": 0.0,
+    "refusal_ok": true,
+    "faithfulness": 0.8,
     "f1_score": null,
     "retrieval_precision": null,
     "found_correct_page": null
@@ -327,14 +347,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Bipolar disorder, or manic-depressive disorder, is a mood disorder that causes radical emotional changes and mood swings, from manic highs to depressive lows. The majority of bipolar individuals experience alternating episodes of mania and depression.",
-    "latency_ms": 1339,
+    "answer": "Bipolar disorder is a chronic recurrent illness that requires lifelong observation and treatment after diagnosis. It is characterized by manic episodes, which are the \"high\" of the manic-depressive cycle, and can lead to a suicide rate of 15-25% if untreated.",
+    "latency_ms": 1575,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.499.0 • Medical_book.pdf_p499_c6756",
-      "Medical_book.pdf • p.500.0 • Medical_book.pdf_p500_c6761",
-      "Medical_book.pdf • p.503.0 • Medical_book.pdf_p503_c6826"
+      "Medical_book.pdf • p.503.0 • Medical_book.pdf_p503_c4625",
+      "Medical_book.pdf • p.500.0 • Medical_book.pdf_p500_c4589",
+      "Medical_book.pdf • p.503.0 • Medical_book.pdf_p503_c4630",
+      "Medical_book.pdf • p.500.0 • Medical_book.pdf_p500_c4593",
+      "Medical_book.pdf • p.499.0 • Medical_book.pdf_p499_c4588"
     ],
     "must_include": [
       "bipolar"
@@ -356,28 +378,26 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "I don't know.",
-    "latency_ms": 716,
+    "answer": "A cataract is cloudiness of the eye’s natural lens, leading to poor vision or blindness.",
+    "latency_ms": 965,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.399.0 • Medical_book.pdf_p399_c5409",
-      "Medical_book.pdf • p.399.0 • Medical_book.pdf_p399_c5408",
-      "Medical_book.pdf • p.399.0 • Medical_book.pdf_p399_c5410"
+      "Medical_book.pdf • p.156.0 • Medical_book.pdf_p156_c1389",
+      "Medical_book.pdf • p.155.0 • Medical_book.pdf_p155_c1383",
+      "Medical_book.pdf • p.260.0 • Medical_book.pdf_p260_c2362",
+      "Medical_book.pdf • p.156.0 • Medical_book.pdf_p156_c1390",
+      "Medical_book.pdf • p.155.0 • Medical_book.pdf_p155_c1380"
     ],
     "must_include": [
       "cataract"
     ],
-    "answer_keyword_hits": 0,
-    "answer_keyword_missing": [
-      "cataract"
-    ],
-    "context_keyword_hits": 0,
-    "context_keyword_missing": [
-      "cataract"
-    ],
-    "refusal_ok": false,
-    "faithfulness": 0.0,
+    "answer_keyword_hits": 1,
+    "answer_keyword_missing": [],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
+    "refusal_ok": true,
+    "faithfulness": 1.0,
     "f1_score": null,
     "retrieval_precision": null,
     "found_correct_page": null
@@ -390,13 +410,15 @@
     "scope": null,
     "should_refuse": false,
     "answer": "Symptoms of dehydration include decreased urination, dizziness or lightheadedness, dry mouth, increased thirst, and wrinkled skin.",
-    "latency_ms": 1025,
+    "latency_ms": 1451,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.279.0 • Medical_book.pdf_p279_c3730",
-      "Medical_book.pdf • p.68.0 • Medical_book.pdf_p68_c799",
-      "Medical_book.pdf • p.438.0 • Medical_book.pdf_p438_c5920"
+      "Medical_book.pdf • p.279.0 • Medical_book.pdf_p279_c2538",
+      "Medical_book.pdf • p.68.0 • Medical_book.pdf_p68_c551",
+      "Medical_book.pdf • p.108.0 • Medical_book.pdf_p108_c925",
+      "Medical_book.pdf • p.415.0 • Medical_book.pdf_p415_c3806",
+      "Medical_book.pdf • p.484.0 • Medical_book.pdf_p484_c4436"
     ],
     "must_include": [
       "dehydration"
@@ -418,14 +440,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Eczema is a general term used to describe a variety of conditions that cause an itchy, inflamed skin rash. Atopic dermatitis, a form of eczema, is a non-contagious disorder characterized by chronically inflamed skin and sometimes intolerable itching.",
-    "latency_ms": 1836,
+    "answer": "Eczema is inflammation of the skin with itching and a rash. The rash may have blisters that ooze and form crusts.",
+    "latency_ms": 1317,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.417.0 • Medical_book.pdf_p417_c5636",
-      "Medical_book.pdf • p.417.0 • Medical_book.pdf_p417_c5638",
-      "Medical_book.pdf • p.243.0 • Medical_book.pdf_p243_c3245"
+      "Medical_book.pdf • p.242.0 • Medical_book.pdf_p242_c2204",
+      "Medical_book.pdf • p.417.0 • Medical_book.pdf_p417_c3825",
+      "Medical_book.pdf • p.243.0 • Medical_book.pdf_p243_c2210",
+      "Medical_book.pdf • p.417.0 • Medical_book.pdf_p417_c3826",
+      "Medical_book.pdf • p.420.0 • Medical_book.pdf_p420_c3849"
     ],
     "must_include": [
       "eczema"
@@ -448,13 +472,15 @@
     "scope": null,
     "should_refuse": false,
     "answer": "I don't know.",
-    "latency_ms": 563,
+    "latency_ms": 968,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.496.0 • Medical_book.pdf_p496_c6711",
-      "Medical_book.pdf • p.572.0 • Medical_book.pdf_p572_c7743",
-      "Medical_book.pdf • p.359.0 • Medical_book.pdf_p359_c4843"
+      "Medical_book.pdf • p.635.0 • Medical_book.pdf_p635_c5848",
+      "Medical_book.pdf • p.520.0 • Medical_book.pdf_p520_c4778",
+      "Medical_book.pdf • p.45.0 • Medical_book.pdf_p45_c351",
+      "Medical_book.pdf • p.634.0 • Medical_book.pdf_p634_c5832",
+      "Medical_book.pdf • p.222.0 • Medical_book.pdf_p222_c2012"
     ],
     "must_include": [
       "fibromyalgia"
@@ -463,10 +489,8 @@
     "answer_keyword_missing": [
       "fibromyalgia"
     ],
-    "context_keyword_hits": 0,
-    "context_keyword_missing": [
-      "fibromyalgia"
-    ],
+    "context_keyword_hits": 1,
+    "context_keyword_missing": [],
     "refusal_ok": false,
     "faithfulness": 0.0,
     "f1_score": null,
@@ -480,14 +504,16 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Gout is defined by attacks of (arthritic) painful, reddened joints, and is often accompanied by hard lumps in the painful joints. Commonly, gout occurs in males in their 40s and 50s and is associated with high levels of uric acid (hyperuricemia). The most common joint affected is the big toe.",
-    "latency_ms": 1766,
+    "answer": "Gout is a hereditary metabolic disease that is a form of arthritis and causes inflammation of the joints. It is defined by attacks of painful, reddened joints and is more common in men. Gout occurs when uric acid collects in the joints and kidneys, leading to arthritis and kidney stones.",
+    "latency_ms": 1993,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.295.0 • Medical_book.pdf_p295_c3963",
-      "Medical_book.pdf • p.295.0 • Medical_book.pdf_p295_c3964",
-      "Medical_book.pdf • p.296.0 • Medical_book.pdf_p296_c3968"
+      "Medical_book.pdf • p.295.0 • Medical_book.pdf_p295_c2694",
+      "Medical_book.pdf • p.635.0 • Medical_book.pdf_p635_c5845",
+      "Medical_book.pdf • p.327.0 • Medical_book.pdf_p327_c2985",
+      "Medical_book.pdf • p.296.0 • Medical_book.pdf_p296_c2697",
+      "Medical_book.pdf • p.295.0 • Medical_book.pdf_p295_c2695"
     ],
     "must_include": [
       "gout"
@@ -510,13 +536,15 @@
     "scope": null,
     "should_refuse": false,
     "answer": "Hepatitis is inflammation of the liver, caused by infectious or toxic agents and characterized by jaundice, fever, liver enlargement, and abdominal pain.",
-    "latency_ms": 1245,
+    "latency_ms": 1539,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.387.0 • Medical_book.pdf_p387_c5231",
-      "Medical_book.pdf • p.531.0 • Medical_book.pdf_p531_c7189",
-      "Medical_book.pdf • p.440.0 • Medical_book.pdf_p440_c5951"
+      "Medical_book.pdf • p.440.0 • Medical_book.pdf_p440_c4042",
+      "Medical_book.pdf • p.388.0 • Medical_book.pdf_p388_c3558",
+      "Medical_book.pdf • p.431.0 • Medical_book.pdf_p431_c3962",
+      "Medical_book.pdf • p.531.0 • Medical_book.pdf_p531_c4880",
+      "Medical_book.pdf • p.388.0 • Medical_book.pdf_p388_c3559"
     ],
     "must_include": [
       "hepatitis"
@@ -539,13 +567,15 @@
     "scope": null,
     "should_refuse": false,
     "answer": "I don't know.",
-    "latency_ms": 617,
+    "latency_ms": 650,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.239.0 • Medical_book.pdf_p239_c3190",
-      "Medical_book.pdf • p.610.0 • Medical_book.pdf_p610_c8276",
-      "Medical_book.pdf • p.329.0 • Medical_book.pdf_p329_c4429"
+      "Medical_book.pdf • p.387.0 • Medical_book.pdf_p387_c3553",
+      "Medical_book.pdf • p.610.0 • Medical_book.pdf_p610_c5609",
+      "Medical_book.pdf • p.329.0 • Medical_book.pdf_p329_c3007",
+      "Medical_book.pdf • p.329.0 • Medical_book.pdf_p329_c3009",
+      "Medical_book.pdf • p.330.0 • Medical_book.pdf_p330_c3020"
     ],
     "must_include": [
       "influenza"
@@ -569,24 +599,28 @@
     "k": 5,
     "scope": null,
     "should_refuse": false,
-    "answer": "Kidney stones, also known as calculi, are crystalline masses that form from the minerals and proteins that naturally occur in urine.",
-    "latency_ms": 1354,
+    "answer": "I don't know.",
+    "latency_ms": 1276,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.524.0 • Medical_book.pdf_p524_c7094",
-      "Medical_book.pdf • p.520.0 • Medical_book.pdf_p520_c7045",
-      "Medical_book.pdf • p.58.0 • Medical_book.pdf_p58_c668"
+      "Medical_book.pdf • p.524.0 • Medical_book.pdf_p524_c4814",
+      "Medical_book.pdf • p.525.0 • Medical_book.pdf_p525_c4824",
+      "Medical_book.pdf • p.524.0 • Medical_book.pdf_p524_c4815",
+      "Medical_book.pdf • p.524.0 • Medical_book.pdf_p524_c4817",
+      "Medical_book.pdf • p.525.0 • Medical_book.pdf_p525_c4820"
     ],
     "must_include": [
       "kidney stone"
     ],
-    "answer_keyword_hits": 1,
-    "answer_keyword_missing": [],
+    "answer_keyword_hits": 0,
+    "answer_keyword_missing": [
+      "kidney stone"
+    ],
     "context_keyword_hits": 1,
     "context_keyword_missing": [],
-    "refusal_ok": true,
-    "faithfulness": 1.0,
+    "refusal_ok": false,
+    "faithfulness": 0.0,
     "f1_score": null,
     "retrieval_precision": null,
     "found_correct_page": null
@@ -599,13 +633,15 @@
     "scope": null,
     "should_refuse": true,
     "answer": "I don't know.",
-    "latency_ms": 1860,
+    "latency_ms": 1082,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.255.0 • Medical_book.pdf_p255_c3406",
-      "Medical_book.pdf • p.38.0 • Medical_book.pdf_p38_c400",
-      "Medical_book.pdf • p.243.0 • Medical_book.pdf_p243_c3243"
+      "Medical_book.pdf • p.362.0 • Medical_book.pdf_p362_c3322",
+      "Medical_book.pdf • p.551.0 • Medical_book.pdf_p551_c5065",
+      "Medical_book.pdf • p.550.0 • Medical_book.pdf_p550_c5053",
+      "Enterprise_Doc.pdf • p.6.0 • Enterprise_Doc.pdf_p6_c5905",
+      "Medical_book.pdf • p.255.0 • Medical_book.pdf_p255_c2319"
     ],
     "must_include": [],
     "answer_keyword_hits": 0,
@@ -626,13 +662,15 @@
     "scope": null,
     "should_refuse": true,
     "answer": "I don't know.",
-    "latency_ms": 502,
+    "latency_ms": 732,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.587.0 • Medical_book.pdf_p587_c7945",
-      "Medical_book.pdf • p.365.0 • Medical_book.pdf_p365_c4927",
-      "Medical_book.pdf • p.606.0 • Medical_book.pdf_p606_c8214"
+      "Enterprise_Doc.pdf • p.7.0 • Enterprise_Doc.pdf_p7_c5908",
+      "Medical_book.pdf • p.238.0 • Medical_book.pdf_p238_c2165",
+      "Medical_book.pdf • p.365.0 • Medical_book.pdf_p365_c3345",
+      "Medical_book.pdf • p.68.0 • Medical_book.pdf_p68_c556",
+      "Medical_book.pdf • p.397.0 • Medical_book.pdf_p397_c3643"
     ],
     "must_include": [],
     "answer_keyword_hits": 0,
@@ -653,13 +691,15 @@
     "scope": null,
     "should_refuse": true,
     "answer": "I don't know.",
-    "latency_ms": 1023,
+    "latency_ms": 998,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.4.0 • Medical_book.pdf_p4_c11",
-      "Medical_book.pdf • p.535.0 • Medical_book.pdf_p535_c7233",
-      "Medical_book.pdf • p.333.0 • Medical_book.pdf_p333_c4491"
+      "Medical_book.pdf • p.190.0 • Medical_book.pdf_p190_c1711",
+      "Medical_book.pdf • p.147.0 • Medical_book.pdf_p147_c1287",
+      "Medical_book.pdf • p.542.0 • Medical_book.pdf_p542_c4981",
+      "Medical_book.pdf • p.312.0 • Medical_book.pdf_p312_c2849",
+      "Medical_book.pdf • p.512.0 • Medical_book.pdf_p512_c4711"
     ],
     "must_include": [],
     "answer_keyword_hits": 0,
@@ -679,21 +719,23 @@
     "k": 5,
     "scope": null,
     "should_refuse": true,
-    "answer": "I don't know.",
-    "latency_ms": 513,
+    "answer": "To submit an insurance claim, use the digital claim submission applications on Availity.com or through EDI. If filing a paper claim, ensure it is on the most current CMS-1500 or CMS-1450 form. Claims must be submitted within the timely filing timeframe specified in the Provider or Facility Agreement.",
+    "latency_ms": 2107,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.19.0 • Medical_book.pdf_p19_c141",
-      "Medical_book.pdf • p.603.0 • Medical_book.pdf_p603_c8169",
-      "Medical_book.pdf • p.118.0 • Medical_book.pdf_p118_c1505"
+      "Enterprise_Doc.pdf • p.25.0 • Enterprise_Doc.pdf_p25_c6033",
+      "Enterprise_Doc.pdf • p.40.0 • Enterprise_Doc.pdf_p40_c6132",
+      "Enterprise_Doc.pdf • p.47.0 • Enterprise_Doc.pdf_p47_c6170",
+      "Enterprise_Doc.pdf • p.145.0 • Enterprise_Doc.pdf_p145_c6782",
+      "Enterprise_Doc.pdf • p.40.0 • Enterprise_Doc.pdf_p40_c6131"
     ],
     "must_include": [],
     "answer_keyword_hits": 0,
     "answer_keyword_missing": [],
     "context_keyword_hits": 0,
     "context_keyword_missing": [],
-    "refusal_ok": true,
+    "refusal_ok": false,
     "faithfulness": null,
     "f1_score": null,
     "retrieval_precision": null,
@@ -707,13 +749,15 @@
     "scope": null,
     "should_refuse": true,
     "answer": "I don't know.",
-    "latency_ms": 656,
+    "latency_ms": 708,
     "retrieved_chunks": 5,
     "citations_present": true,
     "sources": [
-      "Medical_book.pdf • p.358.0 • Medical_book.pdf_p358_c4834",
-      "Medical_book.pdf • p.497.0 • Medical_book.pdf_p497_c6716",
-      "Medical_book.pdf • p.358.0 • Medical_book.pdf_p358_c4835"
+      "Enterprise_Doc.pdf • p.101.0 • Enterprise_Doc.pdf_p101_c6510",
+      "Medical_book.pdf • p.410.0 • Medical_book.pdf_p410_c3762",
+      "Medical_book.pdf • p.528.0 • Medical_book.pdf_p528_c4848",
+      "Medical_book.pdf • p.209.0 • Medical_book.pdf_p209_c1888",
+      "Medical_book.pdf • p.358.0 • Medical_book.pdf_p358_c3282"
     ],
     "must_include": [],
     "answer_keyword_hits": 0,

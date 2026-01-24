@@ -52,17 +52,12 @@
                   </div>
 
 
-                <div class="mt-2 alert alert-warning py-2 px-3 mb-0 disclaimer">
-                  <i class="bi bi-exclamation-triangle me-2"></i>
-                  <strong>Medical disclaimer:</strong> This chatbot provides educational information only and is not a substitute for professional medical advice.
                 </div>
                 <!-- DOCUMENT SELECTOR -->
                 <div class="px-3 px-md-4 py-2 bg-light border-bottom">
                  <div class="d-flex align-items-center gap-2 flex-wrap">
                    <small class="text-muted fw-semibold">Query from:</small>
                      <div id="docCheckboxes" class="d-flex flex-wrap gap-2">
-
-
                <!-- Dynamically populated -->
                 </div>
                   <button id="refreshDocsBtn" class="btn btn-sm btn-outline-secondary ms-auto" type="button">
@@ -71,6 +66,7 @@
                </div>
                 </div>
               </div>
+            </div>
           </header>
 
           <!-- CHAT BODY -->
@@ -83,9 +79,9 @@
                     <i class="bi bi-chat-dots"></i>
                   </div>
                   <div class="flex-grow-1">
-                    <h2 class="h6 fw-semibold mb-1">Ask about topics from the medical PDF</h2>
-                    <p class="text-muted mb-2">
-                      I’ll search the book and answer using the most relevant sections. If it’s not in the document, I’ll say so.
+                    <h2 class="h6 fw-semibold mb-1 text-light">Ask about topics from the PDF</h2>
+                    <p class="text-white mb-2">
+                      I'll search the book and answer using the most relevant sections. If it's not in the document, I'll say so.
                     </p>
 
                     <div class="d-flex flex-wrap gap-2">
@@ -119,15 +115,34 @@
           <!-- FOOTER -->
           <footer class="app-footer px-3 px-md-4 py-3">
             <form id="chatForm" class="w-100">
-              <div class="input-group input-group-lg chat-input-wrap">
-                <span class="input-group-text input-icon">
-                  <i class="bi bi-search-heart"></i>
-                </span>
+              <!-- HyDE Toggle -->
+            <div class="mb-3">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="form-check form-switch m-0">
+             <input class="form-check-input border-secondary" type="checkbox" id="hydeToggle">
+             <label class="form-check-label text-light" for="hydeToggle">
+             <span class="fw-semibold">Use HyDE</span>
+             <span class="text-light small ms-1">(Better retrieval)</span>
+      </label>
+    </div>
+  </div>
+
+            <div id="hydeInfo" class="alert alert-info py-2 px-3 small mt-2 d-none">
+             <i class="bi bi-info-circle me-2"></i>
+             <span id="hydeHypothesis"></span>
+             </div>
+            </div>
+
+<div class="input-group input-group-lg chat-input-wrap">
+  <span class="input-group-text input-icon">
+    <i class="bi bi-search-heart"></i>
+  </span>
+
 
                 <textarea
                   id="userInput"
                   class="form-control chat-input"
-                  placeholder="Ask a medical question… (Press Enter to send, Shift+Enter for new line)"
+                  placeholder="Ask a question… (Press Enter to send, Shift+Enter for new line)"
                   rows="1"
                   maxlength="1200"
                 ></textarea>
@@ -138,8 +153,8 @@
               </div>
 
               <div class="d-flex justify-content-between align-items-center mt-2">
-                <div class="small text-muted">
-                  Tip: ask specific questions for better retrieval (e.g., “symptoms of X”, “treatment for Y”).
+                <div class="small text-white">
+                  Tip: ask specific questions for better retrieval (e.g., "symptoms of X", "treatment for Y").
                 </div>
                 <div class="small text-muted" id="charCount">0 / 1200</div>
               </div>
@@ -209,7 +224,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
  <script>
-  // ---- Chat JS with Multi-Document Support ----
+  // ---- Chat JS with Multi-Document Support + HyDE ----
   const messagesEl = document.getElementById("messages");
   const typingEl = document.getElementById("typing");
   const chatBodyEl = document.getElementById("chatBody");
@@ -460,7 +475,7 @@
     sourcesStateEl.textContent = showSources ? "On" : "Off";
   });
 
-  // Main submit handler with document filtering
+  // Main submit handler with HyDE support
   formEl.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = inputEl.value.trim();
@@ -475,6 +490,10 @@
     sendBtn.disabled = true;
 
     try {
+      // Check if HyDE mode is enabled
+      const hydeEnabled = document.getElementById("hydeToggle").checked;
+      const endpoint = hydeEnabled ? "/get_hyde" : "/get";
+      
       const selectedDocs = getSelectedDocIds();
       const body = new URLSearchParams();
       body.append("msg", text);
@@ -482,23 +501,36 @@
         body.append("doc_ids", selectedDocs.join(","));
       }
 
-      const res = await fetch("/get", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-        body
+      const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body
       });
 
       const raw = await res.text();
       let answerText = raw;
       let sources = [];
+      let hypothesis = null;
+      let timing = null;
 
       try {
         const maybe = JSON.parse(raw);
         if (maybe && typeof maybe === "object") {
           answerText = maybe.answer || maybe.text || raw;
           sources = Array.isArray(maybe.sources) ? maybe.sources : [];
+          hypothesis = maybe.hypothesis;
+          timing = maybe.timing;
         }
       } catch (_) {}
+
+      // Show HyDE info if available
+      if (hypothesis) {
+        const hydeInfo = document.getElementById("hydeInfo");
+        const hydeHypothesis = document.getElementById("hydeHypothesis");
+        hydeHypothesis.textContent = `Generated hypothesis: "${hypothesis.substring(0, 150)}..." (${timing?.hypothesis_generation}s)`;
+        hydeInfo.classList.remove("d-none");
+        setTimeout(() => hydeInfo.classList.add("d-none"), 10000); // Hide after 10s
+      }
 
       addMessage({ role: "bot", text: answerText, sources });
     } catch (err) {
