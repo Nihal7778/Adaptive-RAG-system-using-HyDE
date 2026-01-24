@@ -159,7 +159,7 @@
                 <div class="small text-white">
                   Tip: ask specific questions for better retrieval (e.g., "symptoms of X", "treatment for Y").
                 </div>
-                <div class="small text-muted" id="charCount">0 / 1200</div>
+                <div class="small text-white" id="charCount">0 / 1200</div>
               </div>
             </form>
           </footer>
@@ -227,6 +227,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
  <script>
+  let chatHistory = [];
+
+
   // ---- Chat JS with Multi-Document Support + HyDE ----
   const messagesEl = document.getElementById("messages");
   const typingEl = document.getElementById("typing");
@@ -264,40 +267,55 @@
     return d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   }
 
-  function addMessage({ role, text, sources = [] }) {
-    const isUser = role === "user";
-    const msg = document.createElement("div");
-    msg.className = `msg-row ${isUser ? "msg-user" : "msg-bot"}`;
+function addMessage({ role, text, sources = [], hypothesis = null, timing = null }) {
+  const isUser = role === "user";
+  const msg = document.createElement("div");
+  msg.className = `msg-row ${isUser ? "msg-user" : "msg-bot"}`;
 
-    const safeText = escapeHtml(text).replace(/\n/g, "<br>");
-    const sourcesHtml = (sources && sources.length)
-? `
-  <details class="sources mt-2 ${showSources ? "" : "d-none"}">
-    <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
-    <ul class="mt-2 mb-0">
-      ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
-    </ul>
-  </details>
-`
-: "";
+  const safeText = escapeHtml(text).replace(/\n/g, "<br>");
 
-    msg.innerHTML = `
-      <div class="bubble ${isUser ? "user-bubble" : "bot-bubble"}">
-        <div class="bubble-top">
-          <span class="${isUser ? "user-avatar" : "bot-avatar"}">
-            <i class="bi ${isUser ? "bi-person-fill" : "bi-heart-pulse"}"></i>
-          </span>
-          <span class="bubble-role">${isUser ? "You" : "MediRAG"}</span>
-          <span class="bubble-time ms-auto">${nowTime()}</span>
+  // HyDE block (ONLY for bot messages)
+  const hydeHtml = (!isUser && hypothesis)
+    ? `
+      <details class="hyde mt-2">
+        <summary><i class="bi bi-magic me-1"></i>HyDE hypothesis</summary>
+        <div class="mt-2 small">
+          ${escapeHtml(hypothesis).replace(/\n/g, "<br>")}
+          ${timing?.hypothesis_generation ? `<div class="text-muted mt-1">Generated in ${timing.hypothesis_generation}s</div>` : ""}
         </div>
-        <div class="bubble-text">${safeText}</div>
-        ${sourcesHtml}
-      </div>
-    `;
+      </details>
+    `
+    : "";
 
-    messagesEl.appendChild(msg);
-    scrollToBottom();
-  }
+  const sourcesHtml = (sources && sources.length)
+    ? `
+      <details class="sources mt-2 ${showSources ? "" : "d-none"}">
+        <summary><i class="bi bi-journal-text me-1"></i>View sources</summary>
+        <ul class="mt-2 mb-0">
+          ${sources.map(s => `<li>${escapeHtml(s)}</li>`).join("")}
+        </ul>
+      </details>
+    `
+    : "";
+
+  msg.innerHTML = `
+    <div class="bubble ${isUser ? "user-bubble" : "bot-bubble"}">
+      <div class="bubble-top">
+        <span class="${isUser ? "user-avatar" : "bot-avatar"}">
+          <i class="bi ${isUser ? "bi-person-fill" : "bi-heart-pulse"}"></i>
+        </span>
+        <span class="bubble-role">${isUser ? "You" : "MediRAG"}</span>
+        <span class="bubble-time ms-auto">${nowTime()}</span>
+      </div>
+      <div class="bubble-text">${safeText}</div>
+      ${hydeHtml}
+      ${sourcesHtml}
+    </div>
+  `;
+
+  messagesEl.appendChild(msg);
+  scrollToBottom();
+}
 
   function setTyping(isTyping) {
     typingEl.classList.toggle("d-none", !isTyping);
@@ -310,14 +328,10 @@
   }
 
   // Fetch and render documents
-  async function loadDocuments() {
+ async function loadDocuments() {
     try {
       const res = await fetch("/documents");
       const data = await res.json();
-      const historyText = chatHistory.slice(-10).map(m => 
-      `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`
-      ).join("\n");
-      body.append("history", historyText);
       documents = data.documents || [];
       renderDocumentCheckboxes();
       renderDocumentList();
@@ -325,6 +339,8 @@
       console.error("Failed to load documents:", err);
     }
   }
+
+
 
   function renderDocumentCheckboxes() {
     docCheckboxesEl.innerHTML = documents.map(doc => `
@@ -488,91 +504,94 @@
     sourcesStateEl.textContent = showSources ? "On" : "Off";
   });
 
-  // Main submit handler with HyDE support
   formEl.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const text = inputEl.value.trim();
-    if (!text) return;
+  e.preventDefault();
+  const text = inputEl.value.trim();
+  if (!text) return;
 
-    addMessage({ role: "user", text });
-    chatHistory.push({role: "user", content: text});
-    inputEl.value = "";
-    autoGrow(inputEl);
-    charCountEl.textContent = "0 / 1200";
-    chatHistory.push({role: "user", content: text});
+  addMessage({ role: "user", text });
+  chatHistory.push({ role: "user", content: text });
+  inputEl.value = "";
+  autoGrow(inputEl);
+  charCountEl.textContent = "0 / 1200";
 
-    setTyping(true);
-    sendBtn.disabled = true;
+  setTyping(true);
+  sendBtn.disabled = true;
 
-    try {
-      // Check if HyDE mode is enabled
-      const hydeEnabled = document.getElementById("hydeToggle").checked;
-      const endpoint = hydeEnabled ? "/get_hyde" : "/get";
-      
-      const selectedDocs = getSelectedDocIds();
-      const body = new URLSearchParams();
-      body.append("msg", text);
-      const historyText = chatHistory.slice(-10).map(m => 
-      `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`
-      ).join("\n");
-      if (historyText) {
+  try {
+    const hydeEnabled = document.getElementById("hydeToggle").checked;
+    const endpoint = hydeEnabled ? "/get_hyde" : "/get";
+    
+    const selectedDocs = getSelectedDocIds();
+    const body = new URLSearchParams();
+    body.append("msg", text);
+    
+    // Add history (FIXED - moved before definition)
+    const historyText = chatHistory
+      .slice(-10)
+      .map(m => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
+      .join("\n");
+    if (historyText) {
       body.append("history", historyText);
-      }
-      if (selectedDocs.length > 0) {
-        body.append("doc_ids", selectedDocs.join(","));
-      }
+    }
 
-      const res = await fetch(endpoint, {
+    if (selectedDocs.length > 0) {
+      body.append("doc_ids", selectedDocs.join(","));
+    }
+
+    const res = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
       body
-      });
+    });
 
-      const raw = await res.text();
-      let answerText = raw;
-      let sources = [];
-      let hypothesis = null;
-      let timing = null;
-      let chatHistory = [];
+    const raw = await res.text();
+    let answerText = raw;
+    let sources = [];
+    let hypothesis = null;
+    let timing = null;
 
-      try {
-        const maybe = JSON.parse(raw);
-        if (maybe && typeof maybe === "object") {
-          answerText = maybe.answer || maybe.text || raw;
-          sources = Array.isArray(maybe.sources) ? maybe.sources : [];
-          chatHistory.push({role: "assistant", content: answerText});
-          hypothesis = maybe.hypothesis;
-          timing = maybe.timing;
-        }
-      } catch (_) {}
-      addMessage({ role: "bot", text: answerText, sources });
-      chatHistory.push({role: "assistant", content: answerText}); 
+    try {
+      const maybe = JSON.parse(raw);
+      if (maybe && typeof maybe === "object") {
+        answerText = maybe.answer || maybe.text || raw;
+        sources = Array.isArray(maybe.sources) ? maybe.sources : [];
+        hypothesis = maybe.hypothesis;
+        timing = maybe.timing;
+      }
+    } catch (_) {}
+    // If HyDE is enabled, prepend the hypothesis into the actual chat response text
+      // Decide what to show in the chat bubble
+      let finalText = answerText;
 
-      // Show HyDE info if available
-      if (hypothesis) {
-        const hydeInfo = document.getElementById("hydeInfo");
-        const hydeHypothesis = document.getElementById("hydeHypothesis");
-        hydeHypothesis.textContent = `Generated hypothesis: "${hypothesis.substring(0, 150)}..." (${timing?.hypothesis_generation}s)`;
-        hydeInfo.classList.remove("d-none");
-        setTimeout(() => hydeInfo.classList.add("d-none"), 10000); // Hide after 10s
+    // If HyDE toggle is ON and we have a hypothesis, show ONLY that in the bubble
+      if (hydeEnabled && hypothesis) {
+      const t = timing?.hypothesis_generation ? ` (${timing.hypothesis_generation}s)` : "";
+      finalText = `HyDE hypothesis${t}:\n${hypothesis}`;
       }
 
-      addMessage({ role: "bot", text: answerText, sources });
-    } catch (err) {
-      addMessage({
-        role: "bot",
-        text: "Sorry — I couldn't reach the server. Please try again."
-      });
-    } finally {
-      setTyping(false);
-      sendBtn.disabled = false;
-      inputEl.focus();
-    }
-  });
+    addMessage({ role: "bot", text: finalText, sources });
+    chatHistory.push({ role: "assistant", content: finalText });
 
-  // Initialize
-  loadDocuments();
-  inputEl.focus();
+
+  } catch (err) {
+    console.error("Fetch error:", err);  // Better error logging
+    addMessage({
+      role: "bot",
+      text: "Sorry — I couldn't reach the server. Please try again."
+    });
+  } finally {
+    setTyping(false);
+    sendBtn.disabled = false;
+    inputEl.focus();
+  }
+});
+
+// Initialize
+loadDocuments();
+inputEl.focus();
+
 </script>
 </body>
 </html>
+
