@@ -14,6 +14,8 @@ from src.hyde import HyDERetriever
 import time
 from flask import session
 import uuid
+from langchain_classic.memory import ConversationBufferWindowMemory
+
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key-here-change-in-production'
@@ -46,6 +48,21 @@ question_answer_chain = create_stuff_documents_chain(llm, prompt)
 hyde_retriever = HyDERetriever()
 
 
+# Memory storage (one memory per session)
+session_memories = {}
+
+def get_memory(session_id):
+    """Get or create memory for session"""
+    if session_id not in session_memories:
+        session_memories[session_id] = ConversationBufferWindowMemory(
+            k=5,
+            memory_key="chat_history",
+            return_messages=True,
+            output_key="answer"
+        )
+    return session_memories[session_id]
+
+
 
 @app.route("/")
 def index():
@@ -62,15 +79,22 @@ def chat():
         session['session_id'] = str(uuid.uuid4())
     sid = session['session_id']
     
-    # Get conversation history (last 5)
-    history = conversations.get(sid, [])[-5:]
+    # Get memory for this session
+    memory = get_memory(sid)
+    print(f"Session ID: {sid}")
+    print(f"Memory contents: {memory.load_memory_variables({})}")
+    
+    # Load conversation history
+    memory_vars = memory.load_memory_variables({})
+    chat_history = memory_vars.get("chat_history", [])
     
     # Build context from history
-    history_context = "\n".join([f"User: {q}\nAssistant: {a}" for q, a in history])
-    
-    # Add history to prompt if exists
-    if history_context:
-        msg_with_context = f"Previous conversation:\n{history_context}\n\nCurrent question: {msg}"
+    if chat_history:
+        history_text = "\n".join([
+            f"{'User' if msg.type == 'human' else 'Assistant'}: {msg.content}"
+            for msg in chat_history
+        ])
+        msg_with_context = f"{history_text}\n\nUser: {msg}"
     else:
         msg_with_context = msg
 
@@ -87,6 +111,7 @@ def chat():
 
     answer_obj = response.get("answer") or response.get("result") or response.get("output") or response.get("text") or ""
     answer = getattr(answer_obj, "content", str(answer_obj)) if answer_obj else ""
+    memory.save_context({"question": msg}, {"answer": answer})
     context_docs = response.get("context", [])
     sources = build_sources(context_docs)
 
@@ -335,13 +360,28 @@ def chat_hyde():
     if not msg:
         return jsonify({"answer": "", "sources": [], "hypothesis": "", "method": "hyde"})
     
-    # Add history to prompt if exists
-    # Use history from frontend instead of session
-    history_from_client = request.form.get("history", "").strip()
-    if history_from_client:
-        msg_with_context = f"{history_from_client}\n\nUser: {msg}"
+    # Get or create session
+    if 'session_id' not in session:
+        session['session_id'] = str(uuid.uuid4())
+    sid = session['session_id']
+    
+    # Get memory for this session
+    memory = get_memory(sid)
+    
+    # Load conversation history
+    memory_vars = memory.load_memory_variables({})
+    chat_history = memory_vars.get("chat_history", [])
+    
+    # Build context from history
+    if chat_history:
+        history_text = "\n".join([
+            f"{'User' if msg.type == 'human' else 'Assistant'}: {msg.content}"
+            for msg in chat_history
+        ])
+        msg_with_context = f"{history_text}\n\nUser: {msg}"
     else:
         msg_with_context = msg
+
 
     # Get document filter
     doc_ids = request.form.get("doc_ids", "").strip()
@@ -395,8 +435,13 @@ Answer:"""
 def clear_history():
     if 'session_id' in session:
         sid = session['session_id']
-        conversations[sid] = []
+        if sid in session_memories:
+            session_memories[sid].clear()
     return jsonify({"success": True})
+
+
+
+
     
 
 

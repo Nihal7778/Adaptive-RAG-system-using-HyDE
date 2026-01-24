@@ -6,5 +6,13 @@
     "status": "indexed",
     "num_chunks": 5860,
     "is_protected": true
+  },
+  "510bc8d1": {
+    "doc_id": "510bc8d1",
+    "filename": "Enterprise_Doc.pdf",
+    "upload_date": "2026-01-24T16:56:06.681325",
+    "status": "indexed",
+    "num_chunks": 968,
+    "is_protected": false
   }
 }

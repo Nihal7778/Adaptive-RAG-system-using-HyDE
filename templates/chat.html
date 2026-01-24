@@ -227,7 +227,6 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
  <script>
-  let chatHistory = [];
 
 
   // ---- Chat JS with Multi-Document Support + HyDE ----
@@ -510,7 +509,6 @@ function addMessage({ role, text, sources = [], hypothesis = null, timing = null
   if (!text) return;
 
   addMessage({ role: "user", text });
-  chatHistory.push({ role: "user", content: text });
   inputEl.value = "";
   autoGrow(inputEl);
   charCountEl.textContent = "0 / 1200";
@@ -526,14 +524,6 @@ function addMessage({ role, text, sources = [], hypothesis = null, timing = null
     const body = new URLSearchParams();
     body.append("msg", text);
     
-    // Add history (FIXED - moved before definition)
-    const historyText = chatHistory
-      .slice(-10)
-      .map(m => `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`)
-      .join("\n");
-    if (historyText) {
-      body.append("history", historyText);
-    }
 
     if (selectedDocs.length > 0) {
       body.append("doc_ids", selectedDocs.join(","));
@@ -571,7 +561,6 @@ function addMessage({ role, text, sources = [], hypothesis = null, timing = null
       }
 
     addMessage({ role: "bot", text: finalText, sources });
-    chatHistory.push({ role: "assistant", content: finalText });
 
 
   } catch (err) {
