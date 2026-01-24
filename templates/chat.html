@@ -314,6 +314,10 @@
     try {
       const res = await fetch("/documents");
       const data = await res.json();
+      const historyText = chatHistory.slice(-10).map(m => 
+      `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`
+      ).join("\n");
+      body.append("history", historyText);
       documents = data.documents || [];
       renderDocumentCheckboxes();
       renderDocumentList();
@@ -491,9 +495,11 @@
     if (!text) return;
 
     addMessage({ role: "user", text });
+    chatHistory.push({role: "user", content: text});
     inputEl.value = "";
     autoGrow(inputEl);
     charCountEl.textContent = "0 / 1200";
+    chatHistory.push({role: "user", content: text});
 
     setTyping(true);
     sendBtn.disabled = true;
@@ -506,6 +512,12 @@
       const selectedDocs = getSelectedDocIds();
       const body = new URLSearchParams();
       body.append("msg", text);
+      const historyText = chatHistory.slice(-10).map(m => 
+      `${m.role === "user" ? "User" : "Assistant"}: ${m.content}`
+      ).join("\n");
+      if (historyText) {
+      body.append("history", historyText);
+      }
       if (selectedDocs.length > 0) {
         body.append("doc_ids", selectedDocs.join(","));
       }
@@ -521,16 +533,20 @@
       let sources = [];
       let hypothesis = null;
       let timing = null;
+      let chatHistory = [];
 
       try {
         const maybe = JSON.parse(raw);
         if (maybe && typeof maybe === "object") {
           answerText = maybe.answer || maybe.text || raw;
           sources = Array.isArray(maybe.sources) ? maybe.sources : [];
+          chatHistory.push({role: "assistant", content: answerText});
           hypothesis = maybe.hypothesis;
           timing = maybe.timing;
         }
       } catch (_) {}
+      addMessage({ role: "bot", text: answerText, sources });
+      chatHistory.push({role: "assistant", content: answerText}); 
 
       // Show HyDE info if available
       if (hypothesis) {

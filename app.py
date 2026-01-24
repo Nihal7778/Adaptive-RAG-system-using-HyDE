@@ -89,12 +89,6 @@ def chat():
     answer = getattr(answer_obj, "content", str(answer_obj)) if answer_obj else ""
     context_docs = response.get("context", [])
     sources = build_sources(context_docs)
-    # Store in memory (keep last 5)
-    if sid not in conversations:
-        conversations[sid] = []
-    conversations[sid].append((msg, answer))
-    if len(conversations[sid]) > 5:
-        conversations[sid] = conversations[sid][-5:]
 
     return jsonify({"answer": answer, "sources": sources})
 
@@ -341,20 +335,11 @@ def chat_hyde():
     if not msg:
         return jsonify({"answer": "", "sources": [], "hypothesis": "", "method": "hyde"})
     
-    # Get or create session
-    if 'session_id' not in session:
-        session['session_id'] = str(uuid.uuid4())
-    sid = session['session_id']
-    
-    # Get conversation history (last 5)
-    history = conversations.get(sid, [])[-5:]
-    
-    # Build context from history
-    history_context = "\n".join([f"User: {q}\nAssistant: {a}" for q, a in history])
-    
     # Add history to prompt if exists
-    if history_context:
-        msg_with_context = f"Previous conversation:\n{history_context}\n\nCurrent question: {msg}"
+    # Use history from frontend instead of session
+    history_from_client = request.form.get("history", "").strip()
+    if history_from_client:
+        msg_with_context = f"{history_from_client}\n\nUser: {msg}"
     else:
         msg_with_context = msg
 
