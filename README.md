@@ -108,27 +108,21 @@ Pinecone
 ### 5. Open EC2 and Install docker in EC2 Machine:
 
 ```bash
-# Update system
-sudo yum update -y
+#optinal
 
-# Install Docker
-sudo yum install docker -y
+sudo apt-get update -y
 
-# Start Docker service
-sudo systemctl start docker
+sudo apt-get upgrade
 
-# Enable Docker on boot
-sudo systemctl enable docker
+#required
 
-# Add user to docker group
-sudo usermod -aG docker ec2-user
+curl -fsSL https://get.docker.com -o get-docker.sh
 
-# Apply group changes
+sudo sh get-docker.sh
+
+sudo usermod -aG docker ubuntu
+
 newgrp docker
-
-# Verify Docker works
-docker --version
-docker ps
 
 ```
 
