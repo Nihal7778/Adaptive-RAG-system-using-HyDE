@@ -6,7 +6,7 @@ What it measures:
 - Citations presence: are we returning chunk/page sources?
 - **NEW: Faithfulness: are answers grounded in retrieved context?**
 - **NEW: F1 Score: token-level overlap with ground truth**
-- **NEW: Retrieval Precision: are correct pages retrieved?**
+- **NEW: Answer Correctness: is the answer correct?**
 
 Outputs:
 - eval_results/<timestamp>_results.json
@@ -260,38 +260,43 @@ def calculate_f1_score(prediction: str, ground_truth: str) -> Optional[float]:
 
 
 # ============================================
-# NEW: RETRIEVAL PRECISION
+# NEW: Accuracy METRIC
 # ============================================
 
-def calculate_retrieval_precision(context_docs: List[Any], expected_pages: List[int]) -> Optional[Dict[str, Any]]:
+def calculate_answer_correctness(question: str, answer: str, ground_truth: str) -> Optional[bool]:
     """
-    Check if correct pages were retrieved.
-    Returns dict with precision and whether any correct page was found.
+    Binary correctness: Is the answer medically correct?
+    Uses LLM-as-judge for evaluation.
+    Returns True/False or None if no ground truth.
     """
-    if not expected_pages or not context_docs:
+    if not ground_truth or not answer:
         return None
     
-    # Extract pages from retrieved docs
-    retrieved_pages = set()
-    for doc in context_docs:
-        meta = getattr(doc, "metadata", {}) or {}
-        page = meta.get("page_display") or meta.get("page")
-        if page is not None:
-            retrieved_pages.add(int(page))
+    llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     
-    # Calculate metrics
-    expected_set = set(expected_pages)
-    relevant_retrieved = retrieved_pages & expected_set
-    
-    precision = len(relevant_retrieved) / len(context_docs) if context_docs else 0.0
-    found_any = len(relevant_retrieved) > 0
-    
-    return {
-        "precision": precision,
-        "found_correct_page": found_any,
-        "retrieved_pages": sorted(list(retrieved_pages)),
-        "expected_pages": expected_pages,
-    }
+    prompt = f"""You are a medical expert evaluating answercorrectness.
+
+Question: {question}
+
+Ground Truth Answer: {ground_truth}
+
+AI Answer: {answer}
+
+Task: Is the AI answer medically CORRECT and accurately addresses the question?
+- Minor wording differences are OK
+- Must contain the key medical facts
+- Must not have major errors or omissions
+
+Respond with ONLY: "CORRECT" or "INCORRECT"
+"""
+
+    try:
+        response = llm.invoke(prompt)
+        result = response.content.strip().upper()
+        return result == "CORRECT"
+    except Exception as e:
+        print(f"  WARNING: Correctness check failed - {e}")
+        return None
 
 
 # -----------------------------
@@ -490,7 +495,11 @@ def run_eval(
         # === NEW: RETRIEVAL PRECISION (only if expected_pages provided) ===
         retrieval_metrics = None
         if case.expected_pages:
-            retrieval_metrics = calculate_retrieval_precision(context_docs, case.expected_pages)
+            answer_correctness = calculate_answer_correctness(
+            case.question, 
+            answer, 
+            case.ground_truth
+            ) if case.ground_truth and not case.should_refuse else None
             if retrieval_metrics:
                 print(f"  [{case.id}] Found correct page: {retrieval_metrics['found_correct_page']}")
 
@@ -516,8 +525,7 @@ def run_eval(
                 # NEW FIELDS:
                 "faithfulness": faithfulness,
                 "f1_score": f1_score,
-                "retrieval_precision": retrieval_metrics["precision"] if retrieval_metrics else None,
-                "found_correct_page": retrieval_metrics["found_correct_page"] if retrieval_metrics else None,
+                "answer_correctness": answer_correctness,
             }
         )
 
@@ -543,8 +551,7 @@ def run_eval(
         "refusal_ok",
         "faithfulness",  # NEW
         "f1_score",  # NEW
-        "retrieval_precision",  # NEW
-        "found_correct_page",  # NEW
+        "answer_correctness",  # NEW
         "answer",
         "sources",
         "scope",
@@ -573,8 +580,8 @@ def run_eval(
     f1_scores = [r["f1_score"] for r in results if r.get("f1_score") is not None]
     avg_f1 = sum(f1_scores) / len(f1_scores) if f1_scores else None
     
-    retrieval_precisions = [r["retrieval_precision"] for r in results if r.get("retrieval_precision") is not None]
-    avg_retrieval_precision = sum(retrieval_precisions) / len(retrieval_precisions) if retrieval_precisions else None
+    correctness_scores = [r["answer_correctness"] for r in results if r.get("answer_correctness") is not None]
+    total_accuracy = (sum(correctness_scores) / len(correctness_scores) * 100) if correctness_scores else None
     
     correct_page_hits = [r["found_correct_page"] for r in results if r.get("found_correct_page") is not None]
     page_hit_rate = sum(correct_page_hits) / len(correct_page_hits) if correct_page_hits else None
@@ -595,15 +602,15 @@ def run_eval(
             f.write(f"- Refusal accuracy: **{refusal_acc:.0%}**\n")
         
         # NEW METRICS IN REPORT:
-        if avg_faithfulness is not None or avg_f1 is not None or avg_retrieval_precision is not None:
+        if avg_faithfulness is not None or avg_f1 is not None or total_accuracy is not None:
             f.write(f"\n## Advanced Metrics (NEW)\n")
             
         if avg_faithfulness is not None:
             f.write(f"- **Avg Faithfulness (Groundedness): {avg_faithfulness:.0%}**  CRITICAL\n")
         if avg_f1 is not None:
             f.write(f"- **Avg F1 Score (vs ground truth): {avg_f1:.0%}** \n")
-        if avg_retrieval_precision is not None:
-            f.write(f"- **Avg Retrieval Precision: {avg_retrieval_precision:.0%}**\n")
+        if total_accuracy is not None:
+             f.write(f"- **Total Accuracy: {total_accuracy:.0%}** (Correct answers)\n")
         if page_hit_rate is not None:
             f.write(f"- **Page Hit Rate: {page_hit_rate:.0%}**\n")
         

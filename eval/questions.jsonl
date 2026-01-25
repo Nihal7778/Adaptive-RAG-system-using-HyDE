@@ -1,6 +1,6 @@
-{"id":"q01","question":"What is acne?","must_include":["acne"],"should_refuse":false}
+{"id":"q01","question":"What is acne?","must_include":["acne"],"should_refuse":false,"ground_truth":"Acne is a common skin disease characterized by pimples on the face, chest, and back that occurs when pores become clogged with oil, dead skin cells, and bacteria. Acne vulgaris is the medical term for common acne.","expected_pages":[38,39]}
 {"id":"q02","question":"What are common symptoms of asthma?","must_include":["asthma"],"should_refuse":false,"ground_truth":"Common symptoms of asthma include wheezing, shortness of breath, coughing, and chest tightness. Children may experience itching on their back or neck at the start of an attack.","expected_pages":[394,395]}
-{"id":"q03","question":"What is anemia?","must_include":["anemia"],"should_refuse":false}
+{"id":"q03","question":"What is anemia?","must_include":["anemia"],"should_refuse":false,"ground_truth":"Anemia is a condition characterized by a deficiency of red blood cells or hemoglobin in the blood, resulting in reduced oxygen delivery to tissues. Common symptoms include fatigue, weakness, pale skin, and shortness of breath.","expected_pages":[194,196]}
 {"id":"q04","question":"What is appendicitis?","must_include":["appendicitis"],"should_refuse":false}
 {"id":"q05","question":"What causes Alzheimer's disease?","must_include":["alzheimer"],"should_refuse":false}
 {"id":"q06","question":"What is diabetes mellitus?","must_include":["diabetes"],"should_refuse":false,"ground_truth": "Diabetes mellitus is a condition where the body either does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar (hyperglycemia).","expected_pages": [542, 543,544]}
@@ -11,13 +11,13 @@
 {"id":"q11","question":"What is pneumonia?","must_include":["pneumonia"],"should_refuse":false}
 {"id":"q12","question":"What is bipolar disorder?","must_include":["bipolar"],"should_refuse":false}
 {"id":"q13","question":"What is a cataract?","must_include":["cataract"],"should_refuse":false}
-{"id":"q14","question":"What are symptoms of dehydration?","must_include":["dehydration"],"should_refuse":false}
+{"id":"q14","question":"What are symptoms of dehydration?","must_include":["dehydration"],"should_refuse":false,"ground_truth":"Symptoms of dehydration include excessive thirst, dry mouth, decreased urination, dark-colored urine, fatigue, dizziness, and confusion. Severe dehydration can lead to rapid heartbeat and low blood pressure."}
 {"id":"q15","question":"What is eczema?","must_include":["eczema"],"should_refuse":false}
 {"id":"q16","question":"What is fibromyalgia?","must_include":["fibromyalgia"],"should_refuse":false}
 {"id":"q17","question":"What is gout?","must_include":["gout"],"should_refuse":false}
 {"id":"q18","question":"What is hepatitis?","must_include":["hepatitis"],"should_refuse":false}
-{"id":"q19","question":"What is influenza?","must_include":["influenza"],"should_refuse":false}
-{"id":"q20","question":"What is a kidney stone?","must_include":["kidney stone"],"should_refuse":false}
+{"id":"q19","question":"What is influenza?","must_include":["influenza"],"should_refuse":false,"ground_truth":"Influenza, or flu, is a contagious respiratory illness caused by influenza viruses that infect the nose, throat, and lungs. Symptoms include fever, cough, sore throat, body aches, headache, and fatigue.","expected_pages":[239,610,611]}
+{"id":"q20","question":"What is a kidney stone?","must_include":["kidney stone"],"should_refuse":false,"ground_truth":"A kidney stone is a hard deposit of minerals and salts that forms inside the kidneys, causing severe pain when passing through the urinary tract. Symptoms include intense pain in the side and back, blood in urine, and nausea.","expected_pages":[520,524,525]}
 {"id":"q21","question":"What is the capital of France?","must_include":[],"should_refuse":true}
 {"id":"q22","question":"How do I invest in the stock market?","must_include":[],"should_refuse":true}
 {"id":"q23","question":"Write Python code to sort a list of integers.","must_include":[],"should_refuse":true}

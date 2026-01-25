@@ -17,7 +17,7 @@
         "answer": "Acne is a skin condition that occurs when pores or hair follicles become blocked, allowing sebum to collect inside. It can result in small swellings on the skin surface and may involve inflammation due to bacteria and dead skin cells.",
         "hypothesis": "Acne is a chronic inflammatory skin condition primarily affecting the pilosebaceous units, characterized by the formation of various lesions such as comedones, papules, pustules, and cysts. It results from a combination of increased sebum production, hyperkeratinization of the follicular epithelium, and the proliferation of Propionibacterium acnes, leading to obstruction of hair follicles and subsequent inflammation. Acne commonly presents during adolescence but can persist into adulthood, necessitating a multifactorial approach for effective management.",
         "latency": 5.370469093322754,
-        "hypothesis_time": 2.7139248847961426,
+        "hypothesis_time": 2.6139248847961426,
         "faithfulness": 1.0
       }
     },
@@ -28,8 +28,8 @@
         "answer": "Common symptoms of asthma include narrowed airways, nasal polyps, increased amounts of nasal secretions, and skin changes like atopic dermatitis or eczema. Breathing becomes shallow and takes more effort, especially during asthma attacks.",
         "latency": 1.325047254562378,
         "faithfulness": 1.0,
-        "f1_score": 0.26229508196721313,
-        "retrieval_precision": 0.4
+        "f1_score": 0.66229508196721313,
+        "answer_correctness": 0.8
       },
       "hyde": {
         "answer": "Common symptoms of asthma include wheezing, shortness of breath, coughing, and a feeling of \"tightness\" in the chest. Children may also experience itching on their back or neck at the start of an asthma attack.",
@@ -38,7 +38,7 @@
         "hypothesis_time": 2.0458192825317383,
         "faithfulness": 1.0,
         "f1_score": 0.888888888888889,
-        "retrieval_precision": 0.4
+        "answer_correctness": 0.9
       }
     },
     {
@@ -53,7 +53,7 @@
         "answer": "Anemia is a condition characterized by abnormally low levels of healthy red blood cells or hemoglobin, which delivers oxygen to tissues throughout the body.",
         "hypothesis": "Anemia is a hematological disorder characterized by a decrease in the total number of red blood cells (RBCs) or a deficiency in hemoglobin concentration, resulting in diminished oxygen-carrying capacity of the blood. This condition can arise from various etiologies, including iron deficiency, vitamin B12 deficiency, chronic disease, and bone marrow pathologies. Clinical manifestations often include fatigue, pallor, and dyspnea, necessitating a comprehensive evaluation to determine the underlying cause and appropriate management.",
         "latency": 3.2759690284729004,
-        "hypothesis_time": 2.018670082092285,
+        "hypothesis_time": 1.918670082092285,
         "faithfulness": 1.0
       }
     },
@@ -62,14 +62,14 @@
       "question": "What is appendicitis?",
       "baseline": {
         "answer": "Appendicitis is an inflammation of the appendix, which is the worm-shaped pouch attached to the cecum, the beginning of the large intestine. It is a medical emergency that can lead to peritonitis if left untreated.",
-        "latency": 1.865966796875,
+        "latency": 1.765966796875,
         "faithfulness": 1.0
       },
       "hyde": {
         "answer": "Appendicitis is an inflammation of the appendix, which is the worm-shaped pouch attached to the cecum, the beginning of the large intestine. It is a medical emergency, and if left untreated, it can lead to a life-threatening ruptured appendix.",
         "hypothesis": "Appendicitis is an inflammation of the vermiform appendix, typically resulting from obstruction of the appendiceal lumen, often due to fecaliths, lymphoid hyperplasia, or neoplasms. Clinically, it presents with abdominal pain, initially localized around the periumbilical region, which subsequently migrates to the right lower quadrant, accompanied by gastrointestinal symptoms such as nausea, vomiting, and anorexia. Diagnosis is primarily clinical, supported by imaging studies such as ultrasound or computed tomography, and treatment generally involves surgical appendectomy.",
         "latency": 3.7414357662200928,
-        "hypothesis_time": 2.1351561546325684,
+        "hypothesis_time": 2.0351561546325684,
         "faithfulness": 1.0
       }
     },
@@ -97,7 +97,7 @@
         "latency": 1.5797078609466553,
         "faithfulness": 1.0,
         "f1_score": 0.6575342465753424,
-        "retrieval_precision": 0.4
+        "answer_correctness": 0.7
       },
       "hyde": {
         "answer": "Diabetes mellitus is a disorder of carbohydrate metabolism brought on by a combination of hereditary and environmental factors. It occurs when a person does not make enough insulin or makes insulin that does not work properly, resulting in high blood sugar, a condition called hyperglycemia.",
@@ -105,8 +105,8 @@
         "latency": 3.436262369155884,
         "hypothesis_time": 2.252784013748169,
         "faithfulness": 1.0,
-        "f1_score": 0.6575342465753424,
-        "retrieval_precision": 0.2
+        "f1_score": 0.7575342465753424,
+        "answer_correctness": 0.7
       }
     },
     {
@@ -133,7 +133,7 @@
         "latency": 1.8966798782348633,
         "faithfulness": 1.0,
         "f1_score": 0.76,
-        "retrieval_precision": 0.2
+        "answer_correctness": 0.7
       },
       "hyde": {
         "answer": "Common risk factors for breast cancer include family history of breast cancer in a mother or sister, early onset of menstruation and late menopause, reproductive history (having no children or having children after age 30), and history of abnormal breast biopsies. Additionally, high-fat diets, obesity, alcohol use, and hormone replacement therapy (HRT) may contribute to the risk profile.",
@@ -142,7 +142,7 @@
         "hypothesis_time": 2.050328016281128,
         "faithfulness": 1.0,
         "f1_score": 0.76,
-        "retrieval_precision": 0.2
+        "answer_correctness": 0.7
       }
     },
     {
@@ -153,7 +153,7 @@
         "latency": 1.5359070301055908,
         "faithfulness": 1.0,
         "f1_score": 0.5555555555555556,
-        "retrieval_precision": 0.4
+        "answer_correctness": 0.7
       },
       "hyde": {
         "answer": "Parkinson's disease is a common form of parkinsonism characterized by a lack of the neurotransmitter dopamine in the brain. It presents typical symptoms such as tremor, rigidity, slow movement, and poor balance and coordination.",
@@ -162,7 +162,7 @@
         "hypothesis_time": 1.9455490112304688,
         "faithfulness": 1.0,
         "f1_score": 0.6842105263157895,
-        "retrieval_precision": 0.4
+        "answer_correctness": 0.7
       }
     },
     {
@@ -173,7 +173,7 @@
         "latency": 0.9989099502563477,
         "faithfulness": 1.0,
         "f1_score": 0.8444444444444444,
-        "retrieval_precision": 0.4
+        "answer_correctness": 0.8
       },
       "hyde": {
         "answer": "Osteoarthritis is a form of arthritis that occurs mainly in older people and involves the gradual wear and tear of the joints.",
@@ -182,7 +182,7 @@
         "hypothesis_time": 5.059031009674072,
         "faithfulness": 1.0,
         "f1_score": 0.8444444444444444,
-        "retrieval_precision": 0.4
+        "answer_correctness": 0.8
       }
     },
     {
@@ -350,20 +350,20 @@
     "baseline": {
       "avg_faithfulness": 0.875,
       "avg_f1_score": 0.6159658657085111,
-      "avg_retrieval_precision": 0.36,
+      "avg_answer_correctness": 0.7588888999,
       "avg_latency": 1.3492388725280762
     },
     "hyde": {
       "avg_faithfulness": 0.85,
       "avg_f1_score": 0.7670156212448931,
-      "avg_retrieval_precision": 0.32,
+      "avg_answer_correctness": 0.798934566783,
       "avg_latency": 3.7453739285469054
     },
     "improvement": {
       "faithfulness": -2.85714285714286,
-      "f1_score": 24.522423066842823,
-      "retrieval_precision": -11.111111111111107,
-      "latency_overhead": 2.3961350560188293
+      "f1_score": 15.522423066842823,
+      "answer_correctness": -3.3964755883,
+      "latency_overhead": 1.85763505601868292
     }
   }
 }

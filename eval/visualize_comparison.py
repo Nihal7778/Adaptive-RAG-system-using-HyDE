@@ -28,16 +28,16 @@ def create_comparison_charts(results, save_path="eval_results"):
     agg = results["aggregate"]
     
     # Extract metrics (convert to percentages)
-    metrics_names = ['Faithfulness', 'F1 Score', 'Retrieval\nPrecision']
+    metrics_names = ['Faithfulness', 'F1 Score', 'answer_correctness']
     baseline_scores = [
         agg['baseline']['avg_faithfulness'] * 100,
         agg['baseline']['avg_f1_score'] * 100,
-        agg['baseline']['avg_retrieval_precision'] * 100
+        agg['baseline']['avg_answer_correctness'] * 100
     ]
     hyde_scores = [
         agg['hyde']['avg_faithfulness'] * 100,
         agg['hyde']['avg_f1_score'] * 100,
-        agg['hyde']['avg_retrieval_precision'] * 100
+        agg['hyde']['avg_answer_correctness'] * 100
     ]
     
     # Latency (in seconds)
@@ -159,11 +159,11 @@ def create_summary_table(results):
          f"{agg['hyde']['avg_f1_score']*100:.1f}%",
          f"{agg['improvement']['f1_score']:+.1f}%",
          '🏆 HyDE' if agg['improvement']['f1_score'] > 0 else '🏆 Baseline'],
-        ['Retrieval Precision',
-         f"{agg['baseline']['avg_retrieval_precision']*100:.1f}%",
-         f"{agg['hyde']['avg_retrieval_precision']*100:.1f}%",
-         f"{agg['improvement']['retrieval_precision']:+.1f}%",
-         '🏆 HyDE' if agg['improvement']['retrieval_precision'] > 0 else '🏆 Baseline'],
+        ['Answer Correctness',
+         f"{agg['baseline']['avg_answer_correctness']*100:.1f}%",
+         f"{agg['hyde']['avg_answer_correctness']*100:.1f}%",
+         f"{agg['improvement']['answer_correctness']:+.1f}%",
+         '🏆 HyDE' if agg['improvement']['answer_correctness'] > 0 else '🏆 Baseline'],
         ['Latency',
          f"{agg['baseline']['avg_latency']:.2f}s",
          f"{agg['hyde']['avg_latency']:.2f}s",
