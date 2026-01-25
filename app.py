@@ -112,6 +112,7 @@ def chat():
     answer_obj = response.get("answer") or response.get("result") or response.get("output") or response.get("text") or ""
     answer = getattr(answer_obj, "content", str(answer_obj)) if answer_obj else ""
     memory.save_context({"question": msg}, {"answer": answer})
+    print(f"💾 Saved to memory. Current history: {memory.load_memory_variables({})}")
     context_docs = response.get("context", [])
     sources = build_sources(context_docs)
 
@@ -360,6 +361,7 @@ def chat_hyde():
     if not msg:
         return jsonify({"answer": "", "sources": [], "hypothesis": "", "method": "hyde"})
     
+    
     # Get or create session
     if 'session_id' not in session:
         session['session_id'] = str(uuid.uuid4())
@@ -371,7 +373,8 @@ def chat_hyde():
     # Load conversation history
     memory_vars = memory.load_memory_variables({})
     chat_history = memory_vars.get("chat_history", [])
-    
+   
+
     # Build context from history
     if chat_history:
         history_text = "\n".join([
@@ -418,6 +421,10 @@ Answer:"""
     
     sources = build_sources(retrieved_docs)
     total_time = time.time() - start_time
+
+     # Save to memory
+    memory.save_context({"question": msg}, {"answer": answer})
+    print(f"💾 [HYDE] Memory saved. New history: {memory.load_memory_variables({})}")
     
     return jsonify({
         "answer": answer,
