@@ -62,21 +62,22 @@ Write a concise medical passage (2-3 sentences) that would appear in a medical r
             return question  # Fallback to original question
     
     def retrieve_with_hyde(
-        self, 
-        docsearch, 
-        question: str, 
-        k: int = 5,
-        filter_dict: Dict[str, Any] = None
-    ) -> Tuple[List, str, float]:
+    self, 
+    docsearch, 
+    question: str, 
+    k: int = 5,
+    filter_dict: Dict[str, Any] =  None
+) -> Tuple[List, str, float]:
         """
-        Retrieve documents using HyDE approach.
+        Retrieve documents using HyDE with multi-query merging.
+        Searches with BOTH original question and hypothesis, then merges results.
         
         Args:
-            docsearch: Pinecone vector store
-            question: User question
-            k: Number of documents to retrieve
-            filter_dict: Optional metadata filter for doc_id
-            
+        docsearch: Pinecone vector store
+        question: User question
+        k: Number of documents to retrieve
+        filter_dict: Optional metadata filter for doc_id
+        
         Returns:
             (retrieved_docs, hypothesis, generation_time)
         """
@@ -85,14 +86,31 @@ Write a concise medical passage (2-3 sentences) that would appear in a medical r
         hypothesis = self.generate_hypothesis(question)
         gen_time = time.time() - start_time
         
-        # Retrieve using hypothesis embedding
+        # DUAL RETRIEVAL: Search with both hypothesis AND original question
+        search_kwargs = {"k": k}
         if filter_dict:
-            retrieved_docs = docsearch.similarity_search(
-                hypothesis, 
-                k=k, 
-                filter=filter_dict
-            )
-        else:
-            retrieved_docs = docsearch.similarity_search(hypothesis, k=k)
+            search_kwargs["filter"] = filter_dict
         
-        return retrieved_docs, hypothesis, gen_time
+        # Retrieve using hypothesis
+        hyde_docs = docsearch.similarity_search(hypothesis, **search_kwargs)
+        
+        # Retrieve using original question
+        baseline_docs = docsearch.similarity_search(question, **search_kwargs)
+        
+        # Merge and deduplicate by chunk_id
+        seen_chunks = set()
+        merged_docs = []
+        
+        for doc in hyde_docs + baseline_docs:
+            chunk_id = doc.metadata.get("chunk_id")
+            if chunk_id and chunk_id not in seen_chunks:
+                seen_chunks.add(chunk_id)
+                merged_docs.append(doc)
+            elif not chunk_id:  # If no chunk_id, add anyway
+                merged_docs.append(doc)
+        
+        # Return top-k from merged results
+        final_docs = merged_docs[:k]
+        
+        return final_docs, hypothesis, gen_time
+
