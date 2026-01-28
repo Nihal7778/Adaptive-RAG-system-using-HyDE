@@ -33,7 +33,7 @@ if index_name not in pc.list_indexes().names():
         )
     )
 
-# we embed each chunk and upsert the embeddings into our Pinecone Index
+# i embed each chunk and upsert the embeddings into Pinecone Index
 docsearch = PineconeVectorStore.from_documents(
     documents=text_chunks,
     embedding=embeddings, 
