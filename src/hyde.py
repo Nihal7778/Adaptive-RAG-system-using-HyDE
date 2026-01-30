@@ -1,6 +1,6 @@
 """
-HyDE (Hypothetical Document Embeddings) for Medical RAG
-Improves retrieval by generating hypothetical medical answers first.
+HyDE (Hypothetical Document Embeddings) for RAG
+Improves retrieval by generating hypothetical answers first.
 """
 
 from langchain_openai import ChatOpenAI
@@ -13,7 +13,7 @@ import time
 class HyDERetriever:
     """
     Retrieves documents using hypothetical document embeddings.
-    Converts user queries into medical terminology before retrieval.
+    Converts user queries into terminology before retrieval.
     """
     
     def __init__(self, llm_model: str = "gpt-4o-mini", temperature: float = 0.7):
@@ -27,18 +27,20 @@ class HyDERetriever:
         self.llm = ChatOpenAI(
             model=llm_model, 
             temperature=temperature, 
-            max_tokens=400
+            max_tokens=1000
         )
         
         # Prompt template for hypothesis generation
         self.prompt = PromptTemplate(
             input_variables=["question"],
-            template="""You are a medical expert writing a textbook passage. 
-Generate a factual medical answer to this question using proper medical terminology.
+            template=""""You are a retrieval-grounded assistant for question answering.As a knowledgeable and helpful research assistant, 
+            your task is to provide informative answers based on the given context from the given document.
+            Use your extensive knowledge base to offer clear, concise, and accurate responses to the user's inquiries.
+            If any question is asked outside of the selected documents then display "I don’t have enough information in the provided documents to answer that accurately".
 
 Question: {question}
 
-Write a concise medical passage (2-3 sentences) that would appear in a medical reference:"""
+Write a concise passage (2-3 sentences) that would appear in a reference:"""
         )
         
         # Create chain
@@ -46,13 +48,13 @@ Write a concise medical passage (2-3 sentences) that would appear in a medical r
     
     def generate_hypothesis(self, question: str) -> str:
         """
-        Generate hypothetical medical answer.
+        Generate hypothetical answer.
         
         Args:
             question: User's question
             
         Returns:
-            Hypothetical answer with medical terminology
+            Hypothetical answer with terminology
         """
         try:
             hypothesis = self.hyde_chain.invoke({"question": question})

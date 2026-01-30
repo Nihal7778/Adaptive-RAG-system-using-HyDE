@@ -31,7 +31,7 @@ docsearch = PineconeVectorStore.from_existing_index(
     embedding=embeddings,
     index_name="medicalbot"
 )
-llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, max_tokens=500)
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0, max_tokens=1000)
 hyde_retriever = HyDERetriever()
 
 

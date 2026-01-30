@@ -39,7 +39,7 @@ questions = [
 ]
 
 for q in questions:
-    docs = docsearch.similarity_search(q, k=3)
+    docs = docsearch.similarity_search(q, k=10)
     pages = set()
     for doc in docs:
         page = doc.metadata.get("page_display") or doc.metadata.get("page")

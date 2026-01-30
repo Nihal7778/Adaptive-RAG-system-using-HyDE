@@ -14,7 +14,7 @@ if "original" not in metadata:
         "filename": "Medical_book.pdf",
         "upload_date": "2025-01-15T00:00:00",
         "status": "indexed",
-        "num_chunks": 5860,
+        "num_chunks": 3195,
         "is_protected": True  # Cannot be deleted
     }
     save_metadata(metadata)

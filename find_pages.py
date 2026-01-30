@@ -32,6 +32,6 @@ questions = [
 ]
 
 for q in questions:
-    docs = docsearch.similarity_search(q, k=3)
+    docs = docsearch.similarity_search(q, k=10)
     pages = sorted(set([d.metadata.get("page_display") for d in docs if d.metadata.get("page_display")]))
     print(f'"{q}": {pages}')

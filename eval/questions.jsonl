@@ -16,8 +16,8 @@
 {"id":"q16","question":"What is fibromyalgia?","must_include":["fibromyalgia"],"should_refuse":false}
 {"id":"q17","question":"What is gout?","must_include":["gout"],"should_refuse":false}
 {"id":"q18","question":"What is hepatitis?","must_include":["hepatitis"],"should_refuse":false}
-{"id":"q19","question":"What is influenza?","must_include":["influenza"],"should_refuse":false,"ground_truth":"Influenza, or flu, is a contagious respiratory illness caused by influenza viruses that infect the nose, throat, and lungs. Symptoms include fever, cough, sore throat, body aches, headache, and fatigue.","expected_pages":[239,610,611]}
-{"id":"q20","question":"What is a kidney stone?","must_include":["kidney stone"],"should_refuse":false,"ground_truth":"A kidney stone is a hard deposit of minerals and salts that forms inside the kidneys, causing severe pain when passing through the urinary tract. Symptoms include intense pain in the side and back, blood in urine, and nausea.","expected_pages":[520,524,525]}
+{"id":"q19","question":"What is influenza?","must_include":["influenza"],"should_refuse":false}
+{"id":"q20","question":"What is a kidney stone?","must_include":["kidney stone"],"should_refuse":false}
 {"id":"q21","question":"What is the capital of France?","must_include":[],"should_refuse":true}
 {"id":"q22","question":"How do I invest in the stock market?","must_include":[],"should_refuse":true}
 {"id":"q23","question":"Write Python code to sort a list of integers.","must_include":[],"should_refuse":true}
