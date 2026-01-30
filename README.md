@@ -1,9 +1,9 @@
-# End-End-MediRAG-GEN-AI
+# End-End-AdaptiveRAG-GEN-AI
 
 
-MediRAG – Document-Grounded Medical Q&A (RAG)
+AdaptiveRAG – Document-Grounded Q&A (RAG)
 
-MediRAG is a Retrieval-Augmented Generation (RAG) chatbot that answers questions using PDF documents as the source of truth. The system builds a semantic index using embeddings + Pinecone, retrieves the most relevant chunks for a user query, and generates a concise answer grounded in the retrieved text with citations (doc + page).
+Adaptive (RAG) system that answers questions using PDF documents as the source of truth. The system builds a semantic index using embeddings + Pinecone, retrieves the most relevant chunks for a user query, and generates a concise answer grounded in the retrieved text with citations (doc + page).
 
 
 ### STEP01 Create a conda environment 
