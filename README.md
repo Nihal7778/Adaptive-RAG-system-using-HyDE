@@ -5,7 +5,7 @@
 --
 
 ## Architecture Diagram
-<img src="https://raw.githubusercontent.com/Nihal7778/Adaptive-RAG-system-using-HyDE/main/assets/AdaptiveRAG_Architecture.png" width="900" alt="Adaptive RAG Architecture">
+<img src="assets/Adaptive RAG Architecture.png" width="900" alt="Adaptive RAG Architecture">
 
 
 
