@@ -1,13 +1,12 @@
-''' bash
+
 ## UI
 <img src="assets/chatbot2.png" width="900" alt="User Interface">
-'''
 
 
-''' bash
+
 ## Architecture Diagram
 <img src="assets/AdaptiveRAG_Architecture.png" width="900" alt="Adaptive RAG Architecture">
-'''
+
 
 
 # End-End-AdaptiveRAG-GEN-AI
