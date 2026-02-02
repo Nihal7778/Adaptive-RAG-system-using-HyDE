@@ -1,6 +1,6 @@
 
 ## Architecture Diagram
-<img src="assets/Adaptive RAG Architecture.png" width="900" alt="Adaptive RAG Architecture">
+<img src="assets/Adaptive Rag Architecture.png" width="900" alt="RAG Architecture">
 
 
 
