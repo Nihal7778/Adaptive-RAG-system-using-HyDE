@@ -2,7 +2,7 @@
 ## UI
 <img src="assets/chatbot2.png" width="900" alt="User Interface">
 
-
+--
 
 ## Architecture Diagram
 <img src="https://raw.githubusercontent.com/Nihal7778/Adaptive-RAG-system-using-HyDE/main/assets/AdaptiveRAG_Architecture.png" width="900" alt="Adaptive RAG Architecture">
