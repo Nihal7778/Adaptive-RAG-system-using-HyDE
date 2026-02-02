@@ -5,7 +5,7 @@
 
 
 ## Architecture Diagram
-<img src="assets/AdaptiveRAG_Architecture.svg" width="900" alt="Adaptive RAG Architecture">
+<img src="assets/AdaptiveRAG_Architecture.png" width="900" alt="Adaptive RAG Architecture">
 
 
 
