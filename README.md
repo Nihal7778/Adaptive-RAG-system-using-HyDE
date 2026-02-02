@@ -1,11 +1,9 @@
+## UI
+<img src="assets/chatbot2.png" width="900" alt="User Interface">
+
 
 ## Architecture Diagram
 <img src="assets/Adaptive Rag Architecture.png" width="900" alt="RAG Architecture">
-
-
-
-## UI
-<img src="assets/chatbot2.png" width="900" alt="User Interface">
 
 
 
