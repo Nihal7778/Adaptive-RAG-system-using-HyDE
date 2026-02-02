@@ -4,9 +4,6 @@
 
 
 
-## Architecture Diagram
-<img src="assets/Adaptive RAG Architecture.png" width="900" alt="Adaptive RAG Architecture">
-
 
 
 
